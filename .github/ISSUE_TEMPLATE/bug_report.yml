@@ -1,0 +1,29 @@
+name: Bug report
+description: Report a bug or compatibility issue in LoginCraft
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Clear description of the bug and expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to Settings -> LoginCraft
+        2. Enable '...'
+        3. Open wp-login.php
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: "WordPress 6.7+, PHP 8.2, Browser"
+    validations:
+      required: true

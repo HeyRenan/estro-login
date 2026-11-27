@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['8.1', '8.2', '8.3', '8.4']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          tools: none
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Lint PHP files
+        run: find . -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Check JS syntax
+        run: node --check assets/admin.js
+
+      - name: Verify plugin header and version parity
+        run: |
+          php -r '
+          $plugin = file_get_contents("logincraft.php");
+          $readme = file_get_contents("readme.txt");
+          foreach (["Plugin Name:", "Version:", "Requires at least:", "Requires PHP:", "Text Domain:"] as $field) {
+              if (!str_contains($plugin, $field)) {
+                  fwrite(STDERR, "Missing header: $field\n");
+                  exit(1);
+              }
+          }
+          preg_match("/^\s*\*\s*Version:\s*([^\s]+)/m", $plugin, $hdrVer);
+          preg_match("/define\(\x27LOGINCRAFT_VERSION\x27,\s*\x27([^\x27]+)\x27\)/", $plugin, $constVer);
+          preg_match("/^Stable tag:\s*([^\s]+)/m", $readme, $stableVer);
+          if (($hdrVer[1] ?? "") === "" || $hdrVer[1] !== ($constVer[1] ?? null) || $hdrVer[1] !== ($stableVer[1] ?? null)) {
+              fwrite(STDERR, "Version mismatch across logincraft.php and readme.txt\n");
+              exit(1);
+          }
+          echo "Plugin header and version parity OK ({$hdrVer[1]})\n";
+          '
+
+      - name: Run unit tests
+        run: php tests/run.php

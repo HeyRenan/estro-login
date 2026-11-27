@@ -1,0 +1,197 @@
+# LoginCraft POT
+msgid ""
+msgstr ""
+"Project-Id-Version: LoginCraft 1.0.0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Domain: logincraft\n"
+
+msgid "Settings"
+msgstr ""
+
+msgid "LoginCraft"
+msgstr ""
+
+msgid "Permission denied."
+msgstr ""
+
+msgid "Slate Light"
+msgstr ""
+
+msgid "Midnight Dark"
+msgstr ""
+
+msgid "Split Studio"
+msgstr ""
+
+msgid "Warm Minimal"
+msgstr ""
+
+msgid "Centered"
+msgstr ""
+
+msgid "Split"
+msgstr ""
+
+msgid "Minimal"
+msgstr ""
+
+msgid "Customize layout, branding, background, and security for wp-login.php in real time."
+msgstr ""
+
+msgid "Open live login"
+msgstr ""
+
+msgid "Settings restored to defaults."
+msgstr ""
+
+msgid "Quick Presets"
+msgstr ""
+
+msgid "1. Layout & Branding"
+msgstr ""
+
+msgid "Page layout"
+msgstr ""
+
+msgid "Logo"
+msgstr ""
+
+msgid "Select logo"
+msgstr ""
+
+msgid "Use image"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "Remove logo"
+msgstr ""
+
+msgid "Remove background image"
+msgstr ""
+
+msgid "When empty, automatically falls back to the Site Custom Logo."
+msgstr ""
+
+msgid "Logo height"
+msgstr ""
+
+msgid "2. Colors & Background"
+msgstr ""
+
+msgid "Background"
+msgstr ""
+
+msgid "Gradient end (optional)"
+msgstr ""
+
+msgid "Card background"
+msgstr ""
+
+msgid "Primary color"
+msgstr ""
+
+msgid "Background image"
+msgstr ""
+
+msgid "Select background image"
+msgstr ""
+
+msgid "Select image"
+msgstr ""
+
+msgid "In Split layout, the image fills the side panel."
+msgstr ""
+
+msgid "Background overlay"
+msgstr ""
+
+msgid "Form border radius"
+msgstr ""
+
+msgid "Sharp (0px)"
+msgstr ""
+
+msgid "Standard (8px)"
+msgstr ""
+
+msgid "Rounded (16px)"
+msgstr ""
+
+msgid "3. UX & Security"
+msgstr ""
+
+msgid "Welcome message (optional)"
+msgstr ""
+
+msgid "e.g. Sign in to manage your site."
+msgstr ""
+
+msgid "Footer note (optional)"
+msgstr ""
+
+msgid "e.g. Need help? support@example.com"
+msgstr ""
+
+msgid "Hide language switcher"
+msgstr ""
+
+msgid "Hide \"Back to site\" link"
+msgstr ""
+
+msgid "Generic login error message (prevents username enumeration)"
+msgstr ""
+
+msgid "4. Custom CSS"
+msgstr ""
+
+msgid "Custom CSS"
+msgstr ""
+
+msgid "Save changes"
+msgstr ""
+
+msgid "Restore all login settings to defaults?"
+msgstr ""
+
+msgid "Reset to defaults"
+msgstr ""
+
+msgid "Live preview"
+msgstr ""
+
+msgid "Username or Email Address"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "Log In"
+msgstr ""
+
+msgid "Lost your password?"
+msgstr ""
+
+msgid "None"
+msgstr ""
+
+msgid "Clear"
+msgstr ""
+
+msgid "Clear %s"
+msgstr ""
+
+msgid "%s color picker"
+msgstr ""
+
+msgid "%s hex value"
+msgstr ""
+
+msgid "Error:"
+msgstr ""
+
+msgid "Invalid credentials. Please check your details and try again."
+msgstr ""
