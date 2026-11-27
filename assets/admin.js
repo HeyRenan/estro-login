@@ -21,8 +21,19 @@ document.addEventListener('DOMContentLoaded', () => {
     return lum < 0.198 ? light : dark;
   }
 
+  function expandHex(value) {
+    const clean = (value || '').replace('#', '').trim();
+    if (/^[0-9a-fA-F]{3}$/.test(clean)) {
+      return '#' + clean.split('').map((c) => c + c).join('').toLowerCase();
+    }
+    if (/^[0-9a-fA-F]{6}$/.test(clean)) {
+      return '#' + clean.toLowerCase();
+    }
+    return '';
+  }
+
   function isValidHex(value) {
-    return /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test((value || '').trim());
+    return expandHex(value) !== '';
   }
 
   const form = document.getElementById('logincraft-form');
@@ -75,8 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     hexInput.value = value;
     const swatch = hexInput.closest('[data-color-control]')?.querySelector('[data-color-swatch]');
-    if (swatch && isValidHex(value)) {
-      swatch.value = value;
+    const expanded = expandHex(value);
+    if (swatch && expanded) {
+      swatch.value = expanded;
     }
   }
 
@@ -173,8 +185,9 @@ document.addEventListener('DOMContentLoaded', () => {
     preview.style.setProperty('--lc-outer-text', outerText);
     preview.style.setProperty('--lc-radius', `${radius}px`);
     preview.style.setProperty('--lc-logo-height', `${logoHeight}px`);
-    preview.style.setProperty('--lc-bg-image', bgImgUrl ? `url("${bgImgUrl}")` : 'none');
-    preview.style.setProperty('--lc-overlay-alpha', bgImgUrl ? (overlay / 100).toFixed(2) : '0');
+    const safeBgImgUrl = bgImgUrl.replace(/["\\]/g, '');
+    preview.style.setProperty('--lc-bg-image', safeBgImgUrl ? `url("${safeBgImgUrl}")` : 'none');
+    preview.style.setProperty('--lc-overlay-alpha', safeBgImgUrl ? (overlay / 100).toFixed(2) : '0');
 
     if (previewWelcome && welcomeInput) {
       const text = welcomeInput.value.trim();
@@ -247,8 +260,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     hexInput?.addEventListener('input', () => {
-      if (isValidHex(hexInput.value) && swatch) {
-        swatch.value = hexInput.value.trim();
+      const expanded = expandHex(hexInput.value);
+      if (expanded && swatch) {
+        swatch.value = expanded;
       }
       updatePreview();
     });
@@ -323,6 +337,183 @@ document.addEventListener('DOMContentLoaded', () => {
       updatePreview();
     });
   });
+
+  const transferWrap = form.querySelector('[data-transfer]');
+  if (transferWrap) {
+    const portableKeys = [
+      'layout',
+      'logo_height',
+      'bg_color',
+      'bg_color_end',
+      'bg_overlay',
+      'card_bg_color',
+      'primary_color',
+      'card_radius',
+      'welcome_text',
+      'footer_text',
+      'hide_language_switcher',
+      'hide_back_to_blog',
+      'generic_login_errors',
+      'custom_css',
+    ];
+    const exportBtn = transferWrap.querySelector('[data-transfer-export]');
+    const importBtn = transferWrap.querySelector('[data-transfer-import]');
+    const fileInput = transferWrap.querySelector('[data-transfer-file]');
+    const statusEl = transferWrap.querySelector('[data-transfer-status]');
+
+    function showTransferStatus(message, isError = false) {
+      if (!statusEl) {
+        return;
+      }
+      statusEl.textContent = message;
+      statusEl.classList.toggle('is-error', isError);
+      statusEl.hidden = !message;
+    }
+
+    function collectPortableSettings() {
+      const toggle = (name) => Boolean(form.querySelector(`input[name$="[${name}]"]`)?.checked);
+      return {
+        layout: form.querySelector('input[name$="[layout]"]:checked')?.value || 'centered',
+        logo_height: Number(logoHeightInput?.value || 64),
+        bg_color: document.getElementById('lc_bg_color')?.value.trim() || '#f1f5f9',
+        bg_color_end: document.getElementById('lc_bg_color_end')?.value.trim() || '',
+        bg_overlay: Number(bgOverlayInput?.value || 45),
+        card_bg_color: document.getElementById('lc_card_bg_color')?.value.trim() || '#ffffff',
+        primary_color: document.getElementById('lc_primary_color')?.value.trim() || '#0f172a',
+        card_radius: Number(form.querySelector('input[name$="[card_radius]"]:checked')?.value || 8),
+        welcome_text: welcomeInput?.value || '',
+        footer_text: footerInput?.value || '',
+        hide_language_switcher: toggle('hide_language_switcher'),
+        hide_back_to_blog: toggle('hide_back_to_blog'),
+        generic_login_errors: toggle('generic_login_errors'),
+        custom_css: document.getElementById('lc_custom_css')?.value || '',
+      };
+    }
+
+    function applyImportedSettings(data) {
+      if (typeof data.layout === 'string') {
+        const radio = form.querySelector(`input[name$="[layout]"][value="${CSS.escape(data.layout)}"]`);
+        if (radio) {
+          radio.checked = true;
+        }
+      }
+
+      if (data.logo_height !== undefined && logoHeightInput) {
+        const val = Math.max(24, Math.min(160, Math.round(Number(data.logo_height))));
+        if (!Number.isNaN(val)) {
+          logoHeightInput.value = String(val);
+        }
+      }
+
+      if (data.bg_overlay !== undefined && bgOverlayInput) {
+        const val = Math.max(0, Math.min(90, Math.round(Number(data.bg_overlay))));
+        if (!Number.isNaN(val)) {
+          bgOverlayInput.value = String(val);
+        }
+      }
+
+      ['bg_color', 'card_bg_color', 'primary_color'].forEach((key) => {
+        if (typeof data[key] === 'string' && expandHex(data[key])) {
+          setColorField(`lc_${key}`, expandHex(data[key]));
+        }
+      });
+
+      if (typeof data.bg_color_end === 'string') {
+        const trimmed = data.bg_color_end.trim();
+        if (trimmed === '') {
+          setColorField('lc_bg_color_end', '');
+        } else if (expandHex(trimmed)) {
+          setColorField('lc_bg_color_end', expandHex(trimmed));
+        }
+      }
+
+      if (data.card_radius !== undefined) {
+        const radiusRadio = form.querySelector(`input[name$="[card_radius]"][value="${CSS.escape(String(data.card_radius))}"]`);
+        if (radiusRadio) {
+          radiusRadio.checked = true;
+        }
+      }
+
+      if (typeof data.welcome_text === 'string' && welcomeInput) {
+        welcomeInput.value = data.welcome_text.slice(0, 160);
+      }
+
+      if (typeof data.footer_text === 'string' && footerInput) {
+        footerInput.value = data.footer_text.slice(0, 160);
+      }
+
+      ['hide_language_switcher', 'hide_back_to_blog', 'generic_login_errors'].forEach((key) => {
+        if (data[key] !== undefined) {
+          const checkbox = form.querySelector(`input[type="checkbox"][name$="[${key}]"]`);
+          if (checkbox) {
+            checkbox.checked = Boolean(data[key]);
+          }
+        }
+      });
+
+      const customCssInput = document.getElementById('lc_custom_css');
+      if (typeof data.custom_css === 'string' && customCssInput) {
+        customCssInput.value = data.custom_css;
+      }
+
+      updatePreview();
+    }
+
+    exportBtn?.addEventListener('click', () => {
+      const payload = {
+        plugin: 'logincraft',
+        version: transferWrap.getAttribute('data-version') || '1.1.0',
+        settings: collectPortableSettings(),
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'logincraft-settings.json';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      showTransferStatus(transferWrap.getAttribute('data-msg-exported') || 'Settings exported to JSON.');
+    });
+
+    importBtn?.addEventListener('click', () => {
+      fileInput?.click();
+    });
+
+    fileInput?.addEventListener('change', async () => {
+      const file = fileInput.files?.[0];
+      if (!file) {
+        return;
+      }
+
+      const invalidMsg = transferWrap.getAttribute('data-msg-invalid') || 'Invalid LoginCraft JSON file.';
+      try {
+        const parsed = JSON.parse(await file.text());
+        const candidate = (parsed && typeof parsed === 'object' && !Array.isArray(parsed) && parsed.settings && typeof parsed.settings === 'object' && !Array.isArray(parsed.settings))
+          ? parsed.settings
+          : parsed;
+
+        if (!candidate || typeof candidate !== 'object' || Array.isArray(candidate)) {
+          showTransferStatus(invalidMsg, true);
+          return;
+        }
+
+        const hasKnownKey = portableKeys.some((key) => Object.prototype.hasOwnProperty.call(candidate, key));
+        if (!hasKnownKey) {
+          showTransferStatus(invalidMsg, true);
+          return;
+        }
+
+        applyImportedSettings(candidate);
+        showTransferStatus(transferWrap.getAttribute('data-msg-imported') || 'Settings loaded into preview. Click "Save changes" to apply.');
+      } catch (_) {
+        showTransferStatus(invalidMsg, true);
+      } finally {
+        fileInput.value = '';
+      }
+    });
+  }
 
   form.addEventListener('input', updatePreview);
   form.addEventListener('change', updatePreview);

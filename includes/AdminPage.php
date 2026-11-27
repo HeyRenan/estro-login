@@ -425,6 +425,28 @@ final class AdminPage
                             </div>
                         </section>
 
+                        <section
+                            class="lc-card"
+                            data-transfer
+                            data-version="<?php echo esc_attr(LOGINCRAFT_VERSION); ?>"
+                            data-msg-exported="<?php esc_attr_e('Settings exported to JSON.', 'logincraft'); ?>"
+                            data-msg-imported="<?php esc_attr_e('Settings loaded into preview. Click "Save changes" to apply.', 'logincraft'); ?>"
+                            data-msg-invalid="<?php esc_attr_e('Invalid LoginCraft JSON file.', 'logincraft'); ?>"
+                        >
+                            <h2><?php esc_html_e('Export & Import', 'logincraft'); ?></h2>
+                            <p class="lc-transfer-desc"><?php esc_html_e('Transfer layout, colors, text, toggles, and Custom CSS between sites. Logos and background images stay site-specific.', 'logincraft'); ?></p>
+                            <div class="lc-transfer-row">
+                                <button type="button" class="lc-btn-secondary" data-transfer-export>
+                                    <?php esc_html_e('Export JSON', 'logincraft'); ?>
+                                </button>
+                                <button type="button" class="lc-btn-secondary" data-transfer-import>
+                                    <?php esc_html_e('Import JSON', 'logincraft'); ?>
+                                </button>
+                                <input type="file" accept="application/json,.json" data-transfer-file hidden>
+                            </div>
+                            <p class="lc-transfer-status" data-transfer-status role="status" aria-live="polite" hidden></p>
+                        </section>
+
                         <div class="lc-actions">
                             <?php submit_button(__('Save changes', 'logincraft'), 'primary', 'submit', false); ?>
                             <button

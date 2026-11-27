@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'translation-revision-date' => '2026-11-26 17:45-0300',
-    'generator'                 => 'LoginCraft 1.0.0',
+    'translation-revision-date' => '2026-11-27 09:35-0300',
+    'generator'                 => 'LoginCraft 1.1.0',
     'plural-forms'              => 'nplurals=2; plural=(n > 1);',
     'language'                  => 'pt_BR',
     'messages'                  => [
@@ -53,6 +53,13 @@ return [
         'Hide "Back to site" link'                                      => 'Ocultar link "Voltar para o site"',
         'Generic login error message (prevents username enumeration)'   => 'Mensagem de erro genérica (evita enumeração de usuários)',
         'Custom CSS'                                                    => 'CSS Customizado',
+        'Export & Import'                                               => 'Exportar e Importar',
+        'Transfer layout, colors, text, toggles, and Custom CSS between sites. Logos and background images stay site-specific.' => 'Transfira layout, cores, textos, opções e CSS customizado entre sites. Logos e imagens de fundo continuam locais.',
+        'Export JSON'                                                   => 'Exportar JSON',
+        'Import JSON'                                                   => 'Importar JSON',
+        'Settings exported to JSON.'                                    => 'Configurações exportadas em JSON.',
+        'Settings loaded into preview. Click "Save changes" to apply.'  => 'Configurações carregadas no preview. Clique em "Salvar alterações" para aplicar.',
+        'Invalid LoginCraft JSON file.'                                 => 'Arquivo JSON do LoginCraft inválido.',
         'Preview viewport'                                              => 'Modo de visualização',
         'Desktop'                                                       => 'Desktop',
         'Mobile'                                                        => 'Mobile',

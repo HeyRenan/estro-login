@@ -248,7 +248,7 @@ final class LoginRenderer
             return '';
         }
 
-        return wp_get_attachment_image_url($logoId, 'medium') ?: '';
+        return wp_get_attachment_image_url($logoId, 'full') ?: '';
     }
 
     /**

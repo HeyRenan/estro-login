@@ -525,6 +525,33 @@
   box-sizing: border-box;
 }
 
+.lc-transfer-desc {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--lc-ui-muted);
+}
+
+.lc-transfer-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lc-transfer-status {
+  margin: 10px 0 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #166534;
+}
+
+.lc-transfer-status[hidden] {
+  display: none;
+}
+
+.lc-transfer-status.is-error {
+  color: var(--lc-ui-danger);
+}
+
 .lc-actions {
   display: flex;
   align-items: center;

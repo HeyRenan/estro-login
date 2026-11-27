@@ -9,14 +9,23 @@ A lightweight, zero-dependency WordPress login customizer with a real-time side-
 
 No jQuery in the settings UI, no frontend queries (`autoload = false`), no upsells, and no bloat.
 
+![LoginCraft Settings](docs/screenshots/settings.png)
+
+## Layouts
+
+| Split Studio | Midnight Dark | Warm Minimal |
+| :---: | :---: | :---: |
+| ![Split Studio](docs/screenshots/layout-split.png) | ![Midnight Dark](docs/screenshots/layout-dark.png) | ![Warm Minimal](docs/screenshots/layout-minimal.png) |
+
 ## Features
 
 - **3 polished layouts**: `Centered`, `Split` (editorial aside + clean form), and `Minimal`.
 - **4 one-click presets**: `Slate Light`, `Midnight Dark`, `Split Studio`, and `Warm Minimal`.
-- **Real-time Live Preview**: pure Vanilla JS preview inside **Settings → LoginCraft** matching `wp-login.php`.
+- **Real-time Live Preview**: pure Vanilla JS preview inside **Settings → LoginCraft** matching `wp-login.php`, with Desktop/Mobile viewport toggle.
 - **Brand & visual controls**: custom logo with height slider (falls back to the site's Custom Logo), solid or gradient background, background image with adjustable overlay, dark/light card support, and border radius presets (`0px`, `8px`, `16px`).
 - **Automatic WCAG contrast**: calculates relative luminance for button text, dark cards, and outer links.
 - **UX & security hygiene**: optional welcome/footer text, hide language switcher, hide "Back to site" link, generic login error message (prevents username enumeration without masking password-reset errors), `interim-login` safe handling, and sanitized Custom CSS.
+- **Portable JSON Export & Import**: transfer layout, colors, copy, toggles, and Custom CSS across sites while keeping local media IDs separate.
 - **Clean data footprint**: single `logincraft_settings` option stored with `autoload = false`, nonce-protected reset, and full cleanup via `uninstall.php`.
 
 ## Installation
@@ -26,6 +35,12 @@ No jQuery in the settings UI, no frontend queries (`autoload = false`), no upsel
 1. Download `logincraft.zip` from [Releases](https://github.com/HeyRenan/logincraft/releases).
 2. In WordPress admin, go to **Plugins → Add New → Upload Plugin** and activate **LoginCraft**.
 3. Configure at **Settings → LoginCraft**.
+
+### Composer
+
+```bash
+composer require heyrenan/logincraft
+```
 
 ### Manual / Git
 

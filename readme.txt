@@ -4,7 +4,7 @@ Tags: login, custom login, login page, white label, security
 Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 1.0.1
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,7 +24,7 @@ LoginCraft lets you brand `wp-login.php` cleanly without heavy builders, upsells
 * Automatic WCAG relative-luminance contrast for buttons, dark cards, and links
 * Welcome message and footer note support
 * Optional UX & security toggles: hide language switcher, hide Back to Site link, generic login error message
-* Sanitized Custom CSS field and nonce-protected Reset to Defaults
+* Sanitized Custom CSS field, JSON settings Export/Import, and nonce-protected Reset to Defaults
 * Clean footprint: `autoload = false` option and complete removal on uninstall
 
 == Installation ==
@@ -42,6 +42,12 @@ No. Options are stored with `autoload = false`, admin assets load only on the Lo
 Yes. When `interim-login` is active, LoginCraft automatically keeps the layout compact so the modal stays usable.
 
 == Changelog ==
+
+= 1.1.0 =
+* Added JSON Export & Import for portable settings across sites (excluding site-specific media IDs).
+* Served `full` attachment resolution for crisp Retina/HiDPI logos on `wp-login.php`.
+* Fixed Minimal layout icon contrast for WordPress 7.1 Remember Me help button on dark backgrounds.
+* Fixed 3-character hex color swatch synchronization and added Composer (`heyrenan/logincraft`) plus tag-triggered release automation.
 
 = 1.0.1 =
 * Fixed `.wp-core-ui` body selector so the primary login button always applies custom color and full width.

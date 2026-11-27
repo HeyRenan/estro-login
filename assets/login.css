@@ -245,6 +245,8 @@ body.logincraft--minimal #login form {
 
 body.logincraft--minimal #login form label,
 body.logincraft--minimal #login .forgetmenot label,
+body.logincraft--minimal #login .forgetmenot .dashicons,
+body.logincraft--minimal #login .forgetmenot button,
 body.logincraft--minimal #login form .description {
   color: var(--lc-outer-text, #0f172a);
 }

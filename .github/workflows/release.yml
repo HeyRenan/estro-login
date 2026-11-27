@@ -1,0 +1,65 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: none
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Lint and test
+        run: |
+          find . -name '*.php' -print0 | xargs -0 -n1 php -l
+          node --check assets/admin.js
+          php tests/run.php
+
+      - name: Verify tag matches plugin version
+        run: |
+          TAG_VER="${GITHUB_REF_NAME#v}"
+          php -r '
+          $tag = $argv[1];
+          $plugin = file_get_contents("logincraft.php");
+          $readme = file_get_contents("readme.txt");
+          preg_match("/^\s*\*\s*Version:\s*([^\s]+)/m", $plugin, $hdrVer);
+          preg_match("/define\(\x27LOGINCRAFT_VERSION\x27,\s*\x27([^\x27]+)\x27\)/", $plugin, $constVer);
+          preg_match("/^Stable tag:\s*([^\s]+)/m", $readme, $stableVer);
+          if (($hdrVer[1] ?? "") !== $tag || ($constVer[1] ?? "") !== $tag || ($stableVer[1] ?? "") !== $tag) {
+              fwrite(STDERR, "Tag $tag does not match plugin versions.\n");
+              exit(1);
+          }
+          echo "Tag $tag matches header, constant, and readme.txt\n";
+          ' "$TAG_VER"
+
+      - name: Build release ZIP
+        run: |
+          git archive --format=zip --prefix=logincraft/ HEAD -o logincraft.zip
+          unzip -l logincraft.zip
+          ! unzip -l logincraft.zip | grep -qE 'logincraft/(\.github|docs|tests)/'
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" logincraft.zip \
+            --title "LoginCraft $GITHUB_REF_NAME" \
+            --generate-notes

@@ -1,0 +1,27 @@
+{
+  "name": "heyrenan/logincraft",
+  "description": "Lightweight, zero-dependency WordPress login customizer with live preview, 3 layouts, WCAG auto-contrast, and security hygiene.",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://github.com/HeyRenan/logincraft",
+  "keywords": [
+    "wordpress",
+    "wordpress-plugin",
+    "login",
+    "custom-login",
+    "security"
+  ],
+  "authors": [
+    {
+      "name": "Renan Cordeiro",
+      "homepage": "https://github.com/HeyRenan"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/HeyRenan/logincraft/issues",
+    "source": "https://github.com/HeyRenan/logincraft"
+  },
+  "require": {
+    "php": ">=8.1"
+  }
+}

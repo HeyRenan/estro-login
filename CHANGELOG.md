@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-11-27
+
+### Added
+- Client-side JSON **Export & Import** in **Settings → LoginCraft** to transfer layout, colors, text, toggles, and Custom CSS across sites (ignoring site-specific media IDs).
+- `composer.json` (`type: wordpress-plugin`) for Composer/Bedrock workflows.
+- GitHub Actions release workflow (`.github/workflows/release.yml`) triggered on `v*` tags to validate, build clean `logincraft.zip`, and publish GitHub Releases.
+- Real browser screenshots in `README.md` (`docs/screenshots/` excluded from release ZIPs).
+
+### Fixed
+- Request `full` logo resolution in `LoginRenderer::resolveLogoUrl()` for sharp Retina/HiDPI logos.
+- Sync 3-character hex values (e.g. `#abc` → `#aabbcc`) to native color swatches in `assets/admin.js` and sanitize image URL characters in preview CSS custom properties.
+- Inherit `--lc-outer-text` on WordPress 7.1 `.forgetmenot` help icon and button in Minimal layout on dark backgrounds.
+
 ## [1.0.1] - 2026-11-27
 
 ### Fixed

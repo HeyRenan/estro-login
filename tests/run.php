@@ -117,6 +117,7 @@ $classes = $renderer->filterBodyClass(['login']);
 lc_assert(in_array('logincraft--split', $classes, true), 'split class added');
 lc_assert(in_array('logincraft--has-logo', $classes, true), 'has-logo class added');
 lc_assert(in_array('logincraft--has-bg-image', $classes, true), 'has-bg-image class added');
+lc_assert(($GLOBALS['lc_test_attachment_sizes'][10] ?? '') === 'full', 'logo attachment requests full size for Retina clarity');
 
 $welcomeHtml = $renderer->filterWelcomeMessage('<div>Notice</div>');
 lc_assert(str_contains($welcomeHtml, '<p class="logincraft-welcome">Welcome &amp; &quot;Team&quot; Hi</p><div>Notice</div>'), 'welcome_text strips tags, escapes HTML, and prepends');
@@ -194,6 +195,10 @@ ob_start();
 $admin->renderPage();
 $adminHtml = ob_get_clean();
 lc_assert(str_contains($adminHtml, 'id="logincraft-preview"'), 'authorized render includes live preview');
+lc_assert(str_contains($adminHtml, 'data-transfer-export') && str_contains($adminHtml, 'data-transfer-import'), 'authorized render includes Export & Import controls');
+
+$composer = json_decode((string) file_get_contents(dirname(__DIR__) . '/composer.json'), true);
+lc_assert(is_array($composer) && ($composer['name'] ?? '') === 'heyrenan/logincraft' && ($composer['type'] ?? '') === 'wordpress-plugin', 'composer.json defines heyrenan/logincraft wordpress-plugin package');
 
 $presets = AdminPage::presets();
 lc_assert(count($presets) === 4, '4 curated presets defined');

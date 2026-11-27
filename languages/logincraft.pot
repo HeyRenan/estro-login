@@ -1,7 +1,7 @@
 # LoginCraft POT
 msgid ""
 msgstr ""
-"Project-Id-Version: LoginCraft 1.0.0\n"
+"Project-Id-Version: LoginCraft 1.1.0\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -146,6 +146,27 @@ msgid "Generic login error message (prevents username enumeration)"
 msgstr ""
 
 msgid "Custom CSS"
+msgstr ""
+
+msgid "Export & Import"
+msgstr ""
+
+msgid "Transfer layout, colors, text, toggles, and Custom CSS between sites. Logos and background images stay site-specific."
+msgstr ""
+
+msgid "Export JSON"
+msgstr ""
+
+msgid "Import JSON"
+msgstr ""
+
+msgid "Settings exported to JSON."
+msgstr ""
+
+msgid "Settings loaded into preview. Click \"Save changes\" to apply."
+msgstr ""
+
+msgid "Invalid LoginCraft JSON file."
 msgstr ""
 
 msgid "Preview viewport"

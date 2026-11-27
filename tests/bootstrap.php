@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 define('ABSPATH', __DIR__ . '/../');
-define('LOGINCRAFT_VERSION', '1.0.1');
+define('LOGINCRAFT_VERSION', '1.1.0');
 define('LOGINCRAFT_FILE', dirname(__DIR__) . '/logincraft.php');
 define('LOGINCRAFT_DIR', dirname(__DIR__) . '/');
 define('LOGINCRAFT_URL', 'https://example.test/wp-content/plugins/logincraft/');
@@ -12,6 +12,7 @@ define('LOGINCRAFT_OPTION', 'logincraft_settings');
 $GLOBALS['lc_test_options'] = [];
 $GLOBALS['lc_test_theme_mods'] = [];
 $GLOBALS['lc_test_attachments'] = [];
+$GLOBALS['lc_test_attachment_sizes'] = [];
 $GLOBALS['lc_test_actions'] = [];
 $GLOBALS['lc_test_filters'] = [];
 $GLOBALS['lc_test_enqueued_styles'] = [];
@@ -175,6 +176,7 @@ function get_theme_mod(string $name, mixed $default = false): mixed
 
 function wp_get_attachment_image_url(int $attachmentId, string|array $size = 'thumbnail'): string|false
 {
+    $GLOBALS['lc_test_attachment_sizes'][$attachmentId] = $size;
     return $GLOBALS['lc_test_attachments'][$attachmentId] ?? false;
 }
 
