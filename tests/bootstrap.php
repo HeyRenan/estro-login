@@ -3,25 +3,25 @@
 declare(strict_types=1);
 
 define('ABSPATH', __DIR__ . '/../');
-define('LOGINCRAFT_VERSION', '1.1.0');
-define('LOGINCRAFT_FILE', dirname(__DIR__) . '/logincraft.php');
-define('LOGINCRAFT_DIR', dirname(__DIR__) . '/');
-define('LOGINCRAFT_URL', 'https://example.test/wp-content/plugins/logincraft/');
-define('LOGINCRAFT_OPTION', 'logincraft_settings');
+define('ESTRO_LOGIN_VERSION', '1.2.0');
+define('ESTRO_LOGIN_FILE', dirname(__DIR__) . '/estro-login.php');
+define('ESTRO_LOGIN_DIR', dirname(__DIR__) . '/');
+define('ESTRO_LOGIN_URL', 'https://example.test/wp-content/plugins/estro-login/');
+define('ESTRO_LOGIN_OPTION', 'estro_login_settings');
 
-$GLOBALS['lc_test_options'] = [];
-$GLOBALS['lc_test_theme_mods'] = [];
-$GLOBALS['lc_test_attachments'] = [];
-$GLOBALS['lc_test_attachment_sizes'] = [];
-$GLOBALS['lc_test_actions'] = [];
-$GLOBALS['lc_test_filters'] = [];
-$GLOBALS['lc_test_enqueued_styles'] = [];
-$GLOBALS['lc_test_inline_styles'] = [];
-$GLOBALS['lc_test_can_manage'] = true;
+$GLOBALS['el_test_options'] = [];
+$GLOBALS['el_test_theme_mods'] = [];
+$GLOBALS['el_test_attachments'] = [];
+$GLOBALS['el_test_attachment_sizes'] = [];
+$GLOBALS['el_test_actions'] = [];
+$GLOBALS['el_test_filters'] = [];
+$GLOBALS['el_test_enqueued_styles'] = [];
+$GLOBALS['el_test_inline_styles'] = [];
+$GLOBALS['el_test_can_manage'] = true;
 
 function apply_filters(string $hook, mixed $value, mixed ...$args): mixed
 {
-    foreach ($GLOBALS['lc_test_filters'][$hook] ?? [] as $callback) {
+    foreach ($GLOBALS['el_test_filters'][$hook] ?? [] as $callback) {
         $value = $callback($value, ...$args);
     }
 
@@ -30,31 +30,31 @@ function apply_filters(string $hook, mixed $value, mixed ...$args): mixed
 
 function add_action(string $hook, callable|array $callback, int $priority = 10, int $args = 1): bool
 {
-    $GLOBALS['lc_test_actions'][$hook][] = $callback;
+    $GLOBALS['el_test_actions'][$hook][] = $callback;
     return true;
 }
 
 function add_filter(string $hook, callable|array $callback, int $priority = 10, int $args = 1): bool
 {
-    $GLOBALS['lc_test_filters'][$hook][] = $callback;
+    $GLOBALS['el_test_filters'][$hook][] = $callback;
     return true;
 }
 
 function plugin_basename(string $file): string
 {
-    return 'logincraft/logincraft.php';
+    return 'estro-login/estro-login.php';
 }
 
 function get_option(string $name, mixed $default = false): mixed
 {
-    return array_key_exists($name, $GLOBALS['lc_test_options'])
-        ? $GLOBALS['lc_test_options'][$name]
+    return array_key_exists($name, $GLOBALS['el_test_options'])
+        ? $GLOBALS['el_test_options'][$name]
         : $default;
 }
 
 function update_option(string $name, mixed $value, string|bool|null $autoload = null): bool
 {
-    $GLOBALS['lc_test_options'][$name] = $value;
+    $GLOBALS['el_test_options'][$name] = $value;
     return true;
 }
 
@@ -171,29 +171,29 @@ function get_bloginfo(string $show = '', string $filter = 'raw'): string
 
 function get_theme_mod(string $name, mixed $default = false): mixed
 {
-    return $GLOBALS['lc_test_theme_mods'][$name] ?? $default;
+    return $GLOBALS['el_test_theme_mods'][$name] ?? $default;
 }
 
 function wp_get_attachment_image_url(int $attachmentId, string|array $size = 'thumbnail'): string|false
 {
-    $GLOBALS['lc_test_attachment_sizes'][$attachmentId] = $size;
-    return $GLOBALS['lc_test_attachments'][$attachmentId] ?? false;
+    $GLOBALS['el_test_attachment_sizes'][$attachmentId] = $size;
+    return $GLOBALS['el_test_attachments'][$attachmentId] ?? false;
 }
 
 function wp_enqueue_style(string $handle, string $src = '', array $deps = [], string|bool|null $ver = false): void
 {
-    $GLOBALS['lc_test_enqueued_styles'][$handle] = $src;
+    $GLOBALS['el_test_enqueued_styles'][$handle] = $src;
 }
 
 function wp_add_inline_style(string $handle, string $data): bool
 {
-    $GLOBALS['lc_test_inline_styles'][$handle] = $data;
+    $GLOBALS['el_test_inline_styles'][$handle] = $data;
     return true;
 }
 
 function current_user_can(string $capability): bool
 {
-    return $GLOBALS['lc_test_can_manage'];
+    return $GLOBALS['el_test_can_manage'];
 }
 
 function wp_json_encode(mixed $data): string|false

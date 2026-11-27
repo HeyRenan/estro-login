@@ -1,10 +1,11 @@
 {
-  "name": "heyrenan/logincraft",
+  "name": "heyrenan/estro-login",
   "description": "Lightweight, zero-dependency WordPress login customizer with live preview, 3 layouts, WCAG auto-contrast, and security hygiene.",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
-  "homepage": "https://github.com/HeyRenan/logincraft",
+  "homepage": "https://github.com/HeyRenan/estro-login",
   "keywords": [
+    "estro",
     "wordpress",
     "wordpress-plugin",
     "login",
@@ -18,8 +19,8 @@
     }
   ],
   "support": {
-    "issues": "https://github.com/HeyRenan/logincraft/issues",
-    "source": "https://github.com/HeyRenan/logincraft"
+    "issues": "https://github.com/HeyRenan/estro-login/issues",
+    "source": "https://github.com/HeyRenan/estro-login"
   },
   "require": {
     "php": ">=8.1"

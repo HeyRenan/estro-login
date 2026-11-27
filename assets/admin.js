@@ -36,9 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
     return expandHex(value) !== '';
   }
 
-  const form = document.getElementById('logincraft-form');
-  const preview = document.getElementById('logincraft-preview');
-  const viewport = document.getElementById('lc_preview_viewport');
+  const form = document.getElementById('estro-login-form');
+  const preview = document.getElementById('estro-login-preview');
+  const viewport = document.getElementById('el_preview_viewport');
 
   if (!form || !preview) {
     return;
@@ -53,20 +53,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Keep fallback labels if attribute JSON is malformed.
   }
 
-  const layoutBadge = document.getElementById('lc_preview_layout_badge');
-  const logoHeightInput = document.getElementById('lc_logo_height');
-  const logoHeightVal = document.getElementById('lc_logo_height_val');
-  const bgOverlayInput = document.getElementById('lc_bg_overlay');
-  const bgOverlayVal = document.getElementById('lc_bg_overlay_val');
+  const layoutBadge = document.getElementById('el_preview_layout_badge');
+  const logoHeightInput = document.getElementById('el_logo_height');
+  const logoHeightVal = document.getElementById('el_logo_height_val');
+  const bgOverlayInput = document.getElementById('el_bg_overlay');
+  const bgOverlayVal = document.getElementById('el_bg_overlay_val');
   const overlayField = document.querySelector('[data-overlay-field]');
-  const welcomeInput = document.getElementById('lc_welcome_text');
-  const footerInput = document.getElementById('lc_footer_text');
+  const welcomeInput = document.getElementById('el_welcome_text');
+  const footerInput = document.getElementById('el_footer_text');
 
-  const previewLogoWrap = preview.querySelector('.lc-preview__logo');
+  const previewLogoWrap = preview.querySelector('.el-preview__logo');
   const previewLogoImg = previewLogoWrap?.querySelector('img');
-  const previewWelcome = preview.querySelector('.lc-preview__welcome');
-  const previewFooter = preview.querySelector('.lc-preview__footer');
-  const previewBack = preview.querySelector('.lc-preview__back');
+  const previewWelcome = preview.querySelector('.el-preview__welcome');
+  const previewFooter = preview.querySelector('.el-preview__footer');
+  const previewBack = preview.querySelector('.el-preview__back');
 
   const presetsWrap = form.querySelector('[data-presets]');
   let presets = {};
@@ -115,25 +115,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updatePreview() {
     const layout = form.querySelector('input[name$="[layout]"]:checked')?.value || 'centered';
-    preview.classList.remove('lc-preview--centered', 'lc-preview--split', 'lc-preview--minimal');
-    preview.classList.add(`lc-preview--${layout}`);
+    preview.classList.remove('el-preview--centered', 'el-preview--split', 'el-preview--minimal');
+    preview.classList.add(`el-preview--${layout}`);
 
     if (layoutBadge) {
       layoutBadge.textContent = layoutLabels[layout] || layout;
     }
 
-    const rawBg = document.getElementById('lc_bg_color')?.value || '';
+    const rawBg = document.getElementById('el_bg_color')?.value || '';
     const bgColor = isValidHex(rawBg) ? rawBg.trim() : '#f1f5f9';
-    const rawBgEnd = document.getElementById('lc_bg_color_end')?.value.trim() || '';
+    const rawBgEnd = document.getElementById('el_bg_color_end')?.value.trim() || '';
     const bgEnd = isValidHex(rawBgEnd) ? rawBgEnd : '';
-    const rawCardBg = document.getElementById('lc_card_bg_color')?.value || '';
+    const rawCardBg = document.getElementById('el_card_bg_color')?.value || '';
     const cardBg = isValidHex(rawCardBg) ? rawCardBg.trim() : '#ffffff';
-    const rawPrimary = document.getElementById('lc_primary_color')?.value || '';
+    const rawPrimary = document.getElementById('el_primary_color')?.value || '';
     const primary = isValidHex(rawPrimary) ? rawPrimary.trim() : '#0f172a';
     const radius = form.querySelector('input[name$="[card_radius]"]:checked')?.value || '8';
     const logoHeight = logoHeightInput?.value || '64';
     const overlay = Number(bgOverlayInput?.value || '45');
-    const isMobilePreview = viewport?.classList.contains('lc-preview-viewport--mobile') || false;
+    const isMobilePreview = viewport?.classList.contains('el-preview-viewport--mobile') || false;
 
     if (logoHeightVal) {
       logoHeightVal.textContent = `${logoHeight}px`;
@@ -175,19 +175,19 @@ document.addEventListener('DOMContentLoaded', () => {
       ? cardText
       : contrastColor(outerSource, '#ffffff', '#0f172a');
 
-    preview.style.setProperty('--lc-bg', bgColor);
-    preview.style.setProperty('--lc-bg-surface', bgSurface);
-    preview.style.setProperty('--lc-card-bg', cardBg);
-    preview.style.setProperty('--lc-card-text', cardText);
-    preview.style.setProperty('--lc-card-border', cardBorder);
-    preview.style.setProperty('--lc-primary', primary);
-    preview.style.setProperty('--lc-primary-text', primaryText);
-    preview.style.setProperty('--lc-outer-text', outerText);
-    preview.style.setProperty('--lc-radius', `${radius}px`);
-    preview.style.setProperty('--lc-logo-height', `${logoHeight}px`);
+    preview.style.setProperty('--el-bg', bgColor);
+    preview.style.setProperty('--el-bg-surface', bgSurface);
+    preview.style.setProperty('--el-card-bg', cardBg);
+    preview.style.setProperty('--el-card-text', cardText);
+    preview.style.setProperty('--el-card-border', cardBorder);
+    preview.style.setProperty('--el-primary', primary);
+    preview.style.setProperty('--el-primary-text', primaryText);
+    preview.style.setProperty('--el-outer-text', outerText);
+    preview.style.setProperty('--el-radius', `${radius}px`);
+    preview.style.setProperty('--el-logo-height', `${logoHeight}px`);
     const safeBgImgUrl = bgImgUrl.replace(/["\\]/g, '');
-    preview.style.setProperty('--lc-bg-image', safeBgImgUrl ? `url("${safeBgImgUrl}")` : 'none');
-    preview.style.setProperty('--lc-overlay-alpha', safeBgImgUrl ? (overlay / 100).toFixed(2) : '0');
+    preview.style.setProperty('--el-bg-image', safeBgImgUrl ? `url("${safeBgImgUrl}")` : 'none');
+    preview.style.setProperty('--el-overlay-alpha', safeBgImgUrl ? (overlay / 100).toFixed(2) : '0');
 
     if (previewWelcome && welcomeInput) {
       const text = welcomeInput.value.trim();
@@ -222,10 +222,10 @@ document.addEventListener('DOMContentLoaded', () => {
         layoutRadio.checked = true;
       }
 
-      setColorField('lc_bg_color', preset.bg_color || '#f1f5f9');
-      setColorField('lc_bg_color_end', preset.bg_color_end || '');
-      setColorField('lc_card_bg_color', preset.card_bg_color || '#ffffff');
-      setColorField('lc_primary_color', preset.primary_color || '#0f172a');
+      setColorField('el_bg_color', preset.bg_color || '#f1f5f9');
+      setColorField('el_bg_color_end', preset.bg_color_end || '');
+      setColorField('el_card_bg_color', preset.card_bg_color || '#ffffff');
+      setColorField('el_primary_color', preset.primary_color || '#0f172a');
 
       const radiusRadio = form.querySelector(`input[name$="[card_radius]"][value="${preset.card_radius}"]`);
       if (radiusRadio) {
@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('[data-preview-mode]').forEach((btn) => {
         btn.setAttribute('aria-pressed', btn === modeBtn ? 'true' : 'false');
       });
-      viewport?.classList.toggle('lc-preview-viewport--mobile', mode === 'mobile');
+      viewport?.classList.toggle('el-preview-viewport--mobile', mode === 'mobile');
       updatePreview();
     });
   });
@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   form.querySelectorAll('[data-media-picker]').forEach((picker) => {
     const input = picker.querySelector('input[type="hidden"]');
-    const previewBox = picker.querySelector('.lc-media__preview');
+    const previewBox = picker.querySelector('.el-media__preview');
     const previewImg = previewBox?.querySelector('img');
     const selectBtn = picker.querySelector('[data-media-select]');
     const removeBtn = picker.querySelector('[data-media-remove]');
@@ -375,18 +375,18 @@ document.addEventListener('DOMContentLoaded', () => {
       return {
         layout: form.querySelector('input[name$="[layout]"]:checked')?.value || 'centered',
         logo_height: Number(logoHeightInput?.value || 64),
-        bg_color: document.getElementById('lc_bg_color')?.value.trim() || '#f1f5f9',
-        bg_color_end: document.getElementById('lc_bg_color_end')?.value.trim() || '',
+        bg_color: document.getElementById('el_bg_color')?.value.trim() || '#f1f5f9',
+        bg_color_end: document.getElementById('el_bg_color_end')?.value.trim() || '',
         bg_overlay: Number(bgOverlayInput?.value || 45),
-        card_bg_color: document.getElementById('lc_card_bg_color')?.value.trim() || '#ffffff',
-        primary_color: document.getElementById('lc_primary_color')?.value.trim() || '#0f172a',
+        card_bg_color: document.getElementById('el_card_bg_color')?.value.trim() || '#ffffff',
+        primary_color: document.getElementById('el_primary_color')?.value.trim() || '#0f172a',
         card_radius: Number(form.querySelector('input[name$="[card_radius]"]:checked')?.value || 8),
         welcome_text: welcomeInput?.value || '',
         footer_text: footerInput?.value || '',
         hide_language_switcher: toggle('hide_language_switcher'),
         hide_back_to_blog: toggle('hide_back_to_blog'),
         generic_login_errors: toggle('generic_login_errors'),
-        custom_css: document.getElementById('lc_custom_css')?.value || '',
+        custom_css: document.getElementById('el_custom_css')?.value || '',
       };
     }
 
@@ -414,16 +414,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
       ['bg_color', 'card_bg_color', 'primary_color'].forEach((key) => {
         if (typeof data[key] === 'string' && expandHex(data[key])) {
-          setColorField(`lc_${key}`, expandHex(data[key]));
+          setColorField(`el_${key}`, expandHex(data[key]));
         }
       });
 
       if (typeof data.bg_color_end === 'string') {
         const trimmed = data.bg_color_end.trim();
         if (trimmed === '') {
-          setColorField('lc_bg_color_end', '');
+          setColorField('el_bg_color_end', '');
         } else if (expandHex(trimmed)) {
-          setColorField('lc_bg_color_end', expandHex(trimmed));
+          setColorField('el_bg_color_end', expandHex(trimmed));
         }
       }
 
@@ -451,7 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      const customCssInput = document.getElementById('lc_custom_css');
+      const customCssInput = document.getElementById('el_custom_css');
       if (typeof data.custom_css === 'string' && customCssInput) {
         customCssInput.value = data.custom_css;
       }
@@ -461,15 +461,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     exportBtn?.addEventListener('click', () => {
       const payload = {
-        plugin: 'logincraft',
-        version: transferWrap.getAttribute('data-version') || '1.1.0',
+        plugin: 'estro-login',
+        version: transferWrap.getAttribute('data-version') || '1.2.0',
         settings: collectPortableSettings(),
       };
       const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'logincraft-settings.json';
+      link.download = 'estro-login-settings.json';
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -487,7 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const invalidMsg = transferWrap.getAttribute('data-msg-invalid') || 'Invalid LoginCraft JSON file.';
+      const invalidMsg = transferWrap.getAttribute('data-msg-invalid') || 'Invalid Estro Login JSON file.';
       try {
         const parsed = JSON.parse(await file.text());
         const candidate = (parsed && typeof parsed === 'object' && !Array.isArray(parsed) && parsed.settings && typeof parsed.settings === 'object' && !Array.isArray(parsed.settings))

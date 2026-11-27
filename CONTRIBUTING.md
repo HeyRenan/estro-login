@@ -1,6 +1,6 @@
-# Contributing to LoginCraft
+# Contributing to Estro Login
 
-Thanks for helping improve LoginCraft!
+Thanks for helping improve Estro Login!
 
 ## Principles
 

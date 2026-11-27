@@ -2,12 +2,12 @@
 
 return [
     'translation-revision-date' => '2026-11-27 09:35-0300',
-    'generator'                 => 'LoginCraft 1.1.0',
+    'generator'                 => 'Estro Login 1.2.0',
     'plural-forms'              => 'nplurals=2; plural=(n > 1);',
     'language'                  => 'pt_BR',
     'messages'                  => [
         'Settings'                                                      => 'Configurações',
-        'LoginCraft'                                                    => 'LoginCraft',
+        'Estro Login'                                                    => 'Estro Login',
         'Permission denied.'                                            => 'Permissão negada.',
         'Slate Light'                                                   => 'Slate Claro',
         'Midnight Dark'                                                 => 'Meia-noite Escuro',
@@ -59,7 +59,7 @@ return [
         'Import JSON'                                                   => 'Importar JSON',
         'Settings exported to JSON.'                                    => 'Configurações exportadas em JSON.',
         'Settings loaded into preview. Click "Save changes" to apply.'  => 'Configurações carregadas no preview. Clique em "Salvar alterações" para aplicar.',
-        'Invalid LoginCraft JSON file.'                                 => 'Arquivo JSON do LoginCraft inválido.',
+        'Invalid Estro Login JSON file.'                                 => 'Arquivo JSON do Estro Login inválido.',
         'Preview viewport'                                              => 'Modo de visualização',
         'Desktop'                                                       => 'Desktop',
         'Mobile'                                                        => 'Mobile',

@@ -1,10 +1,10 @@
-html:has(> body.logincraft) {
+html:has(> body.estro-login) {
   height: auto;
   min-height: 100%;
-  background: var(--lc-bg, #f1f5f9);
+  background: var(--el-bg, #f1f5f9);
 }
 
-body.logincraft {
+body.estro-login {
   position: relative;
   min-height: 100dvh;
   height: auto;
@@ -16,87 +16,87 @@ body.logincraft {
   align-items: center;
   justify-content: safe center;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: var(--lc-bg-surface, #f1f5f9);
+  background: var(--el-bg-surface, #f1f5f9);
   background-attachment: fixed;
-  color: var(--lc-outer-text, #0f172a);
+  color: var(--el-outer-text, #0f172a);
 }
 
-body.logincraft.interim-login {
+body.estro-login.interim-login {
   min-height: auto;
   padding: 16px;
-  background: var(--lc-card-bg, #ffffff);
+  background: var(--el-card-bg, #ffffff);
 }
 
-body.logincraft.logincraft--has-bg-image:not(.logincraft--split):not(.interim-login) {
-  background-image: var(--lc-bg-image);
+body.estro-login.estro-login--has-bg-image:not(.estro-login--split):not(.interim-login) {
+  background-image: var(--el-bg-image);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-body.logincraft.logincraft--has-bg-image:not(.logincraft--split):not(.interim-login)::before {
+body.estro-login.estro-login--has-bg-image:not(.estro-login--split):not(.interim-login)::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: rgb(15 23 42 / var(--lc-overlay-alpha, 0));
+  background: rgb(15 23 42 / var(--el-overlay-alpha, 0));
   pointer-events: none;
   z-index: 0;
 }
 
-body.logincraft > * {
+body.estro-login > * {
   position: relative;
   z-index: 1;
 }
 
-body.logincraft #login {
+body.estro-login #login {
   width: 100%;
   max-width: 380px;
   padding: 0;
   margin: 0 auto;
 }
 
-body.logincraft.logincraft--has-logo .login h1 a,
-body.logincraft.logincraft--has-logo h1 a {
-  background-image: var(--lc-logo-url);
+body.estro-login.estro-login--has-logo .login h1 a,
+body.estro-login.estro-login--has-logo h1 a {
+  background-image: var(--el-logo-url);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   width: min(260px, 100%);
-  height: var(--lc-logo-height, 64px);
+  height: var(--el-logo-height, 64px);
   margin: 0 auto 20px;
 }
 
-body.logincraft .logincraft-welcome {
+body.estro-login .estro-login-welcome {
   text-align: center;
   margin: 0 0 16px;
   font-size: 14px;
   line-height: 1.5;
-  color: var(--lc-outer-text, #0f172a);
+  color: var(--el-outer-text, #0f172a);
 }
 
-body.logincraft #login form {
+body.estro-login #login form {
   margin: 0;
   padding: 28px 26px;
-  background: var(--lc-card-bg, #ffffff);
-  color: var(--lc-card-text, #0f172a);
-  border: 1px solid var(--lc-card-border, rgb(15 23 42 / 0.08));
-  border-radius: var(--lc-radius, 8px);
+  background: var(--el-card-bg, #ffffff);
+  color: var(--el-card-text, #0f172a);
+  border: 1px solid var(--el-card-border, rgb(15 23 42 / 0.08));
+  border-radius: var(--el-radius, 8px);
   box-shadow: 0 12px 32px rgb(15 23 42 / 0.08);
 }
 
-body.logincraft #login form label {
+body.estro-login #login form label {
   font-size: 13px;
   font-weight: 600;
-  color: var(--lc-card-text, #0f172a);
+  color: var(--el-card-text, #0f172a);
 }
 
-body.logincraft #login form .description {
-  color: var(--lc-card-muted, #475569);
+body.estro-login #login form .description {
+  color: var(--el-card-muted, #475569);
 }
 
-body.logincraft #login .input,
-body.logincraft #login input[type="text"],
-body.logincraft #login input[type="password"] {
+body.estro-login #login .input,
+body.estro-login #login input[type="text"],
+body.estro-login #login input[type="password"] {
   min-height: 44px;
   padding: 8px 12px;
   font-size: 15px;
@@ -107,35 +107,35 @@ body.logincraft #login input[type="password"] {
   box-shadow: none;
 }
 
-body.logincraft #login .wp-pwd input[type="password"],
-body.logincraft #login .wp-pwd input[type="text"] {
+body.estro-login #login .wp-pwd input[type="password"],
+body.estro-login #login .wp-pwd input[type="text"] {
   padding-right: 44px;
 }
 
-body.logincraft #login .input:focus,
-body.logincraft #login input[type="text"]:focus,
-body.logincraft #login input[type="password"]:focus {
+body.estro-login #login .input:focus,
+body.estro-login #login input[type="text"]:focus,
+body.estro-login #login input[type="password"]:focus {
   border-color: #2271b1;
   box-shadow: 0 0 0 1px #2271b1;
   outline: none;
 }
 
-body.logincraft #login .input:focus-visible,
-body.logincraft #login input[type="text"]:focus-visible,
-body.logincraft #login input[type="password"]:focus-visible {
+body.estro-login #login .input:focus-visible,
+body.estro-login #login input[type="text"]:focus-visible,
+body.estro-login #login input[type="password"]:focus-visible {
   border-color: #2271b1;
   box-shadow: 0 0 0 2px rgb(34 113 177 / 0.25);
   outline: none;
 }
 
-body.logincraft #login .wp-pwd .button.wp-hide-pw {
+body.estro-login #login .wp-pwd .button.wp-hide-pw {
   top: 2px;
   right: 2px;
   height: 40px;
   color: #64748b;
 }
 
-body.logincraft #login .forgetmenot {
+body.estro-login #login .forgetmenot {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -143,22 +143,22 @@ body.logincraft #login .forgetmenot {
   float: none;
 }
 
-body.logincraft #login .forgetmenot label {
+body.estro-login #login .forgetmenot label {
   font-weight: 500;
-  color: var(--lc-card-muted, #475569);
+  color: var(--el-card-muted, #475569);
 }
 
-body.logincraft #login .forgetmenot .dashicons,
-body.logincraft #login .forgetmenot button {
-  color: var(--lc-card-muted, #475569);
+body.estro-login #login .forgetmenot .dashicons,
+body.estro-login #login .forgetmenot button {
+  color: var(--el-card-muted, #475569);
 }
 
-body.logincraft #login p.submit {
+body.estro-login #login p.submit {
   margin: 0;
   float: none;
 }
 
-body.logincraft.wp-core-ui .button-primary {
+body.estro-login.wp-core-ui .button-primary {
   display: block;
   float: none;
   width: 100%;
@@ -168,123 +168,123 @@ body.logincraft.wp-core-ui .button-primary {
   font-weight: 600;
   line-height: 1.4;
   border-radius: 6px;
-  background: var(--lc-primary, #0f172a);
-  border-color: var(--lc-primary, #0f172a);
-  color: var(--lc-primary-text, #ffffff);
+  background: var(--el-primary, #0f172a);
+  border-color: var(--el-primary, #0f172a);
+  color: var(--el-primary-text, #ffffff);
   text-shadow: none;
   box-shadow: none;
   transition: opacity 0.15s ease;
 }
 
-body.logincraft.wp-core-ui .button-primary:hover,
-body.logincraft.wp-core-ui .button-primary:focus,
-body.logincraft.wp-core-ui .button-primary:focus-visible {
+body.estro-login.wp-core-ui .button-primary:hover,
+body.estro-login.wp-core-ui .button-primary:focus,
+body.estro-login.wp-core-ui .button-primary:focus-visible {
   opacity: 0.92;
-  background: var(--lc-primary, #0f172a);
-  border-color: var(--lc-primary, #0f172a);
-  color: var(--lc-primary-text, #ffffff);
+  background: var(--el-primary, #0f172a);
+  border-color: var(--el-primary, #0f172a);
+  color: var(--el-primary-text, #ffffff);
 }
 
-body.logincraft.wp-core-ui .button-primary:focus-visible {
-  outline: 2px solid var(--lc-primary, #0f172a);
+body.estro-login.wp-core-ui .button-primary:focus-visible {
+  outline: 2px solid var(--el-primary, #0f172a);
   outline-offset: 2px;
 }
 
-body.logincraft #nav,
-body.logincraft #backtoblog,
-body.logincraft .privacy-policy-page-link {
+body.estro-login #nav,
+body.estro-login #backtoblog,
+body.estro-login .privacy-policy-page-link {
   margin: 14px 0 0;
   padding: 0;
   text-align: center;
   font-size: 13px;
-  color: var(--lc-outer-text, #0f172a);
+  color: var(--el-outer-text, #0f172a);
 }
 
-body.logincraft #nav a,
-body.logincraft #backtoblog a,
-body.logincraft .privacy-policy-page-link a {
-  color: var(--lc-outer-text, #0f172a);
+body.estro-login #nav a,
+body.estro-login #backtoblog a,
+body.estro-login .privacy-policy-page-link a {
+  color: var(--el-outer-text, #0f172a);
   opacity: 0.88;
   text-decoration: none;
 }
 
-body.logincraft #nav a:hover,
-body.logincraft #backtoblog a:hover,
-body.logincraft .privacy-policy-page-link a:hover,
-body.logincraft #nav a:focus-visible,
-body.logincraft #backtoblog a:focus-visible,
-body.logincraft .privacy-policy-page-link a:focus-visible {
+body.estro-login #nav a:hover,
+body.estro-login #backtoblog a:hover,
+body.estro-login .privacy-policy-page-link a:hover,
+body.estro-login #nav a:focus-visible,
+body.estro-login #backtoblog a:focus-visible,
+body.estro-login .privacy-policy-page-link a:focus-visible {
   opacity: 1;
   text-decoration: underline;
 }
 
-body.logincraft .notice,
-body.logincraft #login_error,
-body.logincraft .message {
+body.estro-login .notice,
+body.estro-login #login_error,
+body.estro-login .message {
   border-radius: 6px;
   margin: 0 0 16px;
   box-shadow: none;
   color: #0f172a;
 }
 
-body.logincraft .logincraft-footer {
+body.estro-login .estro-login-footer {
   margin: 20px auto 0;
   text-align: center;
   font-size: 12px;
-  color: var(--lc-outer-text, #0f172a);
+  color: var(--el-outer-text, #0f172a);
   opacity: 0.8;
 }
 
-body.logincraft--minimal #login form {
+body.estro-login--minimal #login form {
   background: transparent;
   border: 0;
   box-shadow: none;
   padding: 8px 0;
-  color: var(--lc-outer-text, #0f172a);
+  color: var(--el-outer-text, #0f172a);
 }
 
-body.logincraft--minimal #login form label,
-body.logincraft--minimal #login .forgetmenot label,
-body.logincraft--minimal #login .forgetmenot .dashicons,
-body.logincraft--minimal #login .forgetmenot button,
-body.logincraft--minimal #login form .description {
-  color: var(--lc-outer-text, #0f172a);
+body.estro-login--minimal #login form label,
+body.estro-login--minimal #login .forgetmenot label,
+body.estro-login--minimal #login .forgetmenot .dashicons,
+body.estro-login--minimal #login .forgetmenot button,
+body.estro-login--minimal #login form .description {
+  color: var(--el-outer-text, #0f172a);
 }
 
-body.logincraft--split .logincraft-aside {
+body.estro-login--split .estro-login-aside {
   display: none;
 }
 
 @media (min-width: 900px) {
-  body.logincraft--split:not(.interim-login) {
-    --lc-outer-text: var(--lc-card-text, #0f172a);
+  body.estro-login--split:not(.interim-login) {
+    --el-outer-text: var(--el-card-text, #0f172a);
     padding-left: calc(52vw + 24px);
-    background: var(--lc-card-bg, #ffffff);
+    background: var(--el-card-bg, #ffffff);
   }
 
-  body.logincraft--split:not(.interim-login) .logincraft-aside {
+  body.estro-login--split:not(.interim-login) .estro-login-aside {
     display: block;
     position: fixed;
     inset: 0 auto 0 0;
     width: 52vw;
     z-index: 0;
-    background: var(--lc-bg-surface, #f1f5f9);
+    background: var(--el-bg-surface, #f1f5f9);
   }
 
-  body.logincraft--split.logincraft--has-bg-image:not(.interim-login) .logincraft-aside {
-    background-image: var(--lc-bg-image);
+  body.estro-login--split.estro-login--has-bg-image:not(.interim-login) .estro-login-aside {
+    background-image: var(--el-bg-image);
     background-size: cover;
     background-position: center;
   }
 
-  body.logincraft--split.logincraft--has-bg-image:not(.interim-login) .logincraft-aside::before {
+  body.estro-login--split.estro-login--has-bg-image:not(.interim-login) .estro-login-aside::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgb(15 23 42 / var(--lc-overlay-alpha, 0));
+    background: rgb(15 23 42 / var(--el-overlay-alpha, 0));
   }
 
-  body.logincraft--split:not(.interim-login) #login form {
+  body.estro-login--split:not(.interim-login) #login form {
     border: 0;
     box-shadow: none;
     padding: 16px 0;
@@ -292,7 +292,7 @@ body.logincraft--split .logincraft-aside {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  body.logincraft * {
+  body.estro-login * {
     transition: none !important;
   }
 }

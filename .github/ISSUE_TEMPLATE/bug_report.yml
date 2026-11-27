@@ -1,5 +1,5 @@
 name: Bug report
-description: Report a bug or compatibility issue in LoginCraft
+description: Report a bug or compatibility issue in Estro Login
 title: "[Bug]: "
 labels: ["bug"]
 body:
@@ -15,7 +15,7 @@ body:
     attributes:
       label: Steps to reproduce
       placeholder: |
-        1. Go to Settings -> LoginCraft
+        1. Go to Settings -> Estro Login
         2. Enable '...'
         3. Open wp-login.php
     validations:

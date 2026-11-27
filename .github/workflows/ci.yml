@@ -37,19 +37,23 @@ jobs:
       - name: Verify plugin header and version parity
         run: |
           php -r '
-          $plugin = file_get_contents("logincraft.php");
+          $plugin = file_get_contents("estro-login.php");
           $readme = file_get_contents("readme.txt");
-          foreach (["Plugin Name:", "Version:", "Requires at least:", "Requires PHP:", "Text Domain:"] as $field) {
+          foreach (["Plugin Name:", "Version:", "Requires at least:", "Requires PHP:", "Text Domain:", "Update URI:"] as $field) {
               if (!str_contains($plugin, $field)) {
                   fwrite(STDERR, "Missing header: $field\n");
                   exit(1);
               }
           }
+          if (!preg_match("/^\s*\*\s*Update URI:\s*false\s*$/m", $plugin)) {
+              fwrite(STDERR, "Update URI header must be set to false\n");
+              exit(1);
+          }
           preg_match("/^\s*\*\s*Version:\s*([^\s]+)/m", $plugin, $hdrVer);
-          preg_match("/define\(\x27LOGINCRAFT_VERSION\x27,\s*\x27([^\x27]+)\x27\)/", $plugin, $constVer);
+          preg_match("/define\(\x27ESTRO_LOGIN_VERSION\x27,\s*\x27([^\x27]+)\x27\)/", $plugin, $constVer);
           preg_match("/^Stable tag:\s*([^\s]+)/m", $readme, $stableVer);
           if (($hdrVer[1] ?? "") === "" || $hdrVer[1] !== ($constVer[1] ?? null) || $hdrVer[1] !== ($stableVer[1] ?? null)) {
-              fwrite(STDERR, "Version mismatch across logincraft.php and readme.txt\n");
+              fwrite(STDERR, "Version mismatch across estro-login.php and readme.txt\n");
               exit(1);
           }
           echo "Plugin header and version parity OK ({$hdrVer[1]})\n";

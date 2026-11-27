@@ -1,16 +1,16 @@
-# LoginCraft POT
+# Estro Login POT
 msgid ""
 msgstr ""
-"Project-Id-Version: LoginCraft 1.1.0\n"
+"Project-Id-Version: Estro Login 1.2.0\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Domain: logincraft\n"
+"X-Domain: estro-login\n"
 
 msgid "Settings"
 msgstr ""
 
-msgid "LoginCraft"
+msgid "Estro Login"
 msgstr ""
 
 msgid "Permission denied."
@@ -166,7 +166,7 @@ msgstr ""
 msgid "Settings loaded into preview. Click \"Save changes\" to apply."
 msgstr ""
 
-msgid "Invalid LoginCraft JSON file."
+msgid "Invalid Estro Login JSON file."
 msgstr ""
 
 msgid "Preview viewport"

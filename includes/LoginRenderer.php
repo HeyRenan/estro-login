@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LoginCraft;
+namespace EstroLogin;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -33,15 +33,15 @@ final class LoginRenderer
         $options = Options::get();
         $layout = $this->isInterimLogin() ? 'centered' : (string) $options['layout'];
 
-        $classes[] = 'logincraft';
-        $classes[] = 'logincraft--' . $layout;
+        $classes[] = 'estro-login';
+        $classes[] = 'estro-login--' . $layout;
 
         if ($this->resolveLogoUrl($options) !== '') {
-            $classes[] = 'logincraft--has-logo';
+            $classes[] = 'estro-login--has-logo';
         }
 
         if (!$this->isInterimLogin() && $this->resolveBgImageUrl($options) !== '') {
-            $classes[] = 'logincraft--has-bg-image';
+            $classes[] = 'estro-login--has-bg-image';
         }
 
         return $classes;
@@ -56,7 +56,7 @@ final class LoginRenderer
         $options = Options::get();
 
         if ($options['layout'] === 'split') {
-            echo '<div class="logincraft-aside" aria-hidden="true"></div>';
+            echo '<div class="estro-login-aside" aria-hidden="true"></div>';
         }
     }
 
@@ -69,7 +69,7 @@ final class LoginRenderer
             return $message;
         }
 
-        return '<p class="logincraft-welcome">' . esc_html((string) $options['welcome_text']) . '</p>' . $message;
+        return '<p class="estro-login-welcome">' . esc_html((string) $options['welcome_text']) . '</p>' . $message;
     }
 
     public function renderFooterText(): void
@@ -84,7 +84,7 @@ final class LoginRenderer
             return;
         }
 
-        echo '<p class="logincraft-footer">' . esc_html((string) $options['footer_text']) . '</p>';
+        echo '<p class="estro-login-footer">' . esc_html((string) $options['footer_text']) . '</p>';
     }
 
     public function filterLanguageDropdown(mixed $display): bool
@@ -121,21 +121,21 @@ final class LoginRenderer
 
         $message = sprintf(
             '<strong>%s</strong> %s',
-            esc_html__('Error:', 'logincraft'),
-            esc_html__('Invalid credentials. Please check your details and try again.', 'logincraft')
+            esc_html__('Error:', 'estro-login'),
+            esc_html__('Invalid credentials. Please check your details and try again.', 'estro-login')
         );
 
-        return (string) apply_filters('logincraft_error_message', $message);
+        return (string) apply_filters('estro_login_error_message', $message);
     }
 
     public function enqueueStyles(): void
     {
         $options = Options::get();
         wp_enqueue_style(
-            'logincraft-styles',
-            LOGINCRAFT_URL . 'assets/login.css',
+            'estro-login-styles',
+            ESTRO_LOGIN_URL . 'assets/login.css',
             ['login'],
-            LOGINCRAFT_VERSION
+            ESTRO_LOGIN_VERSION
         );
 
         $bgColor = (string) $options['bg_color'];
@@ -164,23 +164,23 @@ final class LoginRenderer
         $overlayAlpha = number_format(((int) $options['bg_overlay']) / 100, 2, '.', '');
 
         $vars = [
-            '--lc-bg'            => $bgColor,
-            '--lc-bg-surface'    => $bgSurface,
-            '--lc-card-bg'       => $cardBg,
-            '--lc-card-text'     => $cardText,
-            '--lc-card-muted'    => $cardMuted,
-            '--lc-card-border'   => $cardBorder,
-            '--lc-primary'       => $primary,
-            '--lc-primary-text'  => $primaryText,
-            '--lc-outer-text'    => $outerText,
-            '--lc-radius'        => ((int) $options['card_radius']) . 'px',
-            '--lc-logo-url'      => $this->formatCssUrl($logoUrl),
-            '--lc-logo-height'   => ((int) $options['logo_height']) . 'px',
-            '--lc-bg-image'      => $this->formatCssUrl($bgImageUrl),
-            '--lc-overlay-alpha' => $bgImageUrl !== '' ? $overlayAlpha : '0',
+            '--el-bg'            => $bgColor,
+            '--el-bg-surface'    => $bgSurface,
+            '--el-card-bg'       => $cardBg,
+            '--el-card-text'     => $cardText,
+            '--el-card-muted'    => $cardMuted,
+            '--el-card-border'   => $cardBorder,
+            '--el-primary'       => $primary,
+            '--el-primary-text'  => $primaryText,
+            '--el-outer-text'    => $outerText,
+            '--el-radius'        => ((int) $options['card_radius']) . 'px',
+            '--el-logo-url'      => $this->formatCssUrl($logoUrl),
+            '--el-logo-height'   => ((int) $options['logo_height']) . 'px',
+            '--el-bg-image'      => $this->formatCssUrl($bgImageUrl),
+            '--el-overlay-alpha' => $bgImageUrl !== '' ? $overlayAlpha : '0',
         ];
 
-        $filteredVars = apply_filters('logincraft_css_vars', $vars, $options);
+        $filteredVars = apply_filters('estro_login_css_vars', $vars, $options);
         if (is_array($filteredVars)) {
             $vars = $filteredVars;
         }
@@ -202,7 +202,7 @@ final class LoginRenderer
             $inlineCss .= "\n" . Options::sanitizeCss((string) $options['custom_css']);
         }
 
-        wp_add_inline_style('logincraft-styles', $inlineCss);
+        wp_add_inline_style('estro-login-styles', $inlineCss);
     }
 
     private function isInterimLogin(): bool

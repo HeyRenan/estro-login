@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LoginCraft;
+namespace EstroLogin;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -39,7 +39,7 @@ final class Options
             'custom_css'             => '',
         ];
 
-        return (array) apply_filters('logincraft_defaults', $defaults);
+        return (array) apply_filters('estro_login_defaults', $defaults);
     }
 
     /**
@@ -49,9 +49,9 @@ final class Options
      */
     public static function get(): array
     {
-        $saved = get_option(LOGINCRAFT_OPTION, []);
-        $options = self::sanitize($saved);
-        $filtered = apply_filters('logincraft_options', $options);
+        $saved = get_option(ESTRO_LOGIN_OPTION, null);
+        $options = (is_array($saved) && $saved !== []) ? self::sanitize($saved) : self::defaults();
+        $filtered = apply_filters('estro_login_options', $options);
 
         return is_array($filtered) ? self::sanitize($filtered) : $options;
     }
