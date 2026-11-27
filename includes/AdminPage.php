@@ -181,7 +181,7 @@ final class AdminPage
                     <h1><?php esc_html_e('LoginCraft', 'logincraft'); ?></h1>
                     <p class="lc-subtitle"><?php esc_html_e('Customize layout, branding, background, and security for wp-login.php in real time.', 'logincraft'); ?></p>
                 </div>
-                <a class="button button-secondary" href="<?php echo esc_url(wp_login_url()); ?>" target="_blank" rel="noopener noreferrer">
+                <a class="lc-btn-secondary" href="<?php echo esc_url(wp_login_url()); ?>" target="_blank" rel="noopener noreferrer">
                     <?php esc_html_e('Open live login', 'logincraft'); ?> &#8599;
                 </a>
             </div>
@@ -201,7 +201,7 @@ final class AdminPage
                             <h2><?php esc_html_e('Quick Presets', 'logincraft'); ?></h2>
                             <div class="lc-presets" data-presets="<?php echo esc_attr((string) wp_json_encode(self::presets())); ?>">
                                 <?php foreach (self::presets() as $presetSlug => $preset) : ?>
-                                    <button type="button" class="button lc-preset-btn" data-preset="<?php echo esc_attr($presetSlug); ?>">
+                                    <button type="button" class="lc-preset-btn" data-preset="<?php echo esc_attr($presetSlug); ?>">
                                         <span class="lc-preset-swatch" style="--swatch-bg: <?php echo esc_attr((string) $preset['bg_color']); ?>; --swatch-accent: <?php echo esc_attr((string) $preset['primary_color']); ?>;" aria-hidden="true"></span>
                                         <span><?php echo esc_html((string) $preset['label']); ?></span>
                                     </button>
@@ -210,7 +210,7 @@ final class AdminPage
                         </section>
 
                         <section class="lc-card">
-                            <h2><?php esc_html_e('1. Layout & Branding', 'logincraft'); ?></h2>
+                            <h2><?php esc_html_e('Layout & Branding', 'logincraft'); ?></h2>
 
                             <fieldset class="lc-field lc-fieldset">
                                 <legend class="lc-label"><?php esc_html_e('Page layout', 'logincraft'); ?></legend>
@@ -243,10 +243,12 @@ final class AdminPage
                                         <img src="<?php echo esc_url($logoUrl); ?>" alt="">
                                     </div>
                                     <div class="lc-media__actions">
-                                        <button type="button" class="button" data-media-select><?php esc_html_e('Select logo', 'logincraft'); ?></button>
-                                        <button type="button" class="button-link-delete" data-media-remove aria-label="<?php esc_attr_e('Remove logo', 'logincraft'); ?>" <?php echo $logoUrl === '' ? 'hidden' : ''; ?>>
-                                            <?php esc_html_e('Remove', 'logincraft'); ?>
-                                        </button>
+                                        <div class="lc-media__btn-row">
+                                            <button type="button" class="lc-btn-secondary" data-media-select><?php esc_html_e('Select logo', 'logincraft'); ?></button>
+                                            <button type="button" class="lc-btn-danger" data-media-remove aria-label="<?php esc_attr_e('Remove logo', 'logincraft'); ?>" <?php echo $logoUrl === '' ? 'hidden' : ''; ?>>
+                                                <?php esc_html_e('Remove', 'logincraft'); ?>
+                                            </button>
+                                        </div>
                                         <p class="description"><?php esc_html_e('When empty, automatically falls back to the Site Custom Logo.', 'logincraft'); ?></p>
                                     </div>
                                 </div>
@@ -255,7 +257,7 @@ final class AdminPage
                             <div class="lc-field">
                                 <label class="lc-label" for="lc_logo_height">
                                     <span><?php esc_html_e('Logo height', 'logincraft'); ?></span>
-                                    <strong id="lc_logo_height_val"><?php echo esc_html((string) $options['logo_height']); ?>px</strong>
+                                    <strong id="lc_logo_height_val" class="lc-range-badge"><?php echo esc_html((string) $options['logo_height']); ?>px</strong>
                                 </label>
                                 <input
                                     type="range"
@@ -270,7 +272,7 @@ final class AdminPage
                         </section>
 
                         <section class="lc-card">
-                            <h2><?php esc_html_e('2. Colors & Background', 'logincraft'); ?></h2>
+                            <h2><?php esc_html_e('Colors & Background', 'logincraft'); ?></h2>
 
                             <div class="lc-colors-grid">
                                 <?php $this->renderColorInput('bg_color', __('Background', 'logincraft'), (string) $options['bg_color'], (string) $defaults['bg_color']); ?>
@@ -292,19 +294,21 @@ final class AdminPage
                                         <img src="<?php echo esc_url($bgImageUrl); ?>" alt="">
                                     </div>
                                     <div class="lc-media__actions">
-                                        <button type="button" class="button" data-media-select aria-label="<?php esc_attr_e('Select background image', 'logincraft'); ?>"><?php esc_html_e('Select image', 'logincraft'); ?></button>
-                                        <button type="button" class="button-link-delete" data-media-remove aria-label="<?php esc_attr_e('Remove background image', 'logincraft'); ?>" <?php echo $bgImageUrl === '' ? 'hidden' : ''; ?>>
-                                            <?php esc_html_e('Remove', 'logincraft'); ?>
-                                        </button>
+                                        <div class="lc-media__btn-row">
+                                            <button type="button" class="lc-btn-secondary" data-media-select aria-label="<?php esc_attr_e('Select background image', 'logincraft'); ?>"><?php esc_html_e('Select image', 'logincraft'); ?></button>
+                                            <button type="button" class="lc-btn-danger" data-media-remove aria-label="<?php esc_attr_e('Remove background image', 'logincraft'); ?>" <?php echo $bgImageUrl === '' ? 'hidden' : ''; ?>>
+                                                <?php esc_html_e('Remove', 'logincraft'); ?>
+                                            </button>
+                                        </div>
                                         <p class="description"><?php esc_html_e('In Split layout, the image fills the side panel.', 'logincraft'); ?></p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="lc-field">
+                            <div class="lc-field <?php echo $bgImageUrl === '' ? 'is-muted' : ''; ?>" data-overlay-field>
                                 <label class="lc-label" for="lc_bg_overlay">
                                     <span><?php esc_html_e('Background overlay', 'logincraft'); ?></span>
-                                    <strong id="lc_bg_overlay_val"><?php echo esc_html((string) $options['bg_overlay']); ?>%</strong>
+                                    <strong id="lc_bg_overlay_val" class="lc-range-badge"><?php echo esc_html((string) $options['bg_overlay']); ?>%</strong>
                                 </label>
                                 <input
                                     type="range"
@@ -343,14 +347,14 @@ final class AdminPage
                         </section>
 
                         <section class="lc-card">
-                            <h2><?php esc_html_e('3. UX & Security', 'logincraft'); ?></h2>
+                            <h2><?php esc_html_e('UX & Security', 'logincraft'); ?></h2>
 
                             <div class="lc-field">
                                 <label class="lc-label" for="lc_welcome_text"><?php esc_html_e('Welcome message (optional)', 'logincraft'); ?></label>
                                 <input
                                     type="text"
                                     id="lc_welcome_text"
-                                    class="regular-text"
+                                    class="lc-input"
                                     name="<?php echo esc_attr(LOGINCRAFT_OPTION); ?>[welcome_text]"
                                     value="<?php echo esc_attr((string) $options['welcome_text']); ?>"
                                     placeholder="<?php esc_attr_e('e.g. Sign in to manage your site.', 'logincraft'); ?>"
@@ -363,7 +367,7 @@ final class AdminPage
                                 <input
                                     type="text"
                                     id="lc_footer_text"
-                                    class="regular-text"
+                                    class="lc-input"
                                     name="<?php echo esc_attr(LOGINCRAFT_OPTION); ?>[footer_text]"
                                     value="<?php echo esc_attr((string) $options['footer_text']); ?>"
                                     placeholder="<?php esc_attr_e('e.g. Need help? support@example.com', 'logincraft'); ?>"
@@ -372,40 +376,43 @@ final class AdminPage
                             </div>
 
                             <div class="lc-toggles">
-                                <label>
+                                <label class="lc-switch">
                                     <input
                                         type="checkbox"
                                         name="<?php echo esc_attr(LOGINCRAFT_OPTION); ?>[hide_language_switcher]"
                                         value="1"
                                         <?php checked((bool) $options['hide_language_switcher']); ?>
                                     >
+                                    <span class="lc-switch__track" aria-hidden="true"></span>
                                     <span><?php esc_html_e('Hide language switcher', 'logincraft'); ?></span>
                                 </label>
 
-                                <label>
+                                <label class="lc-switch">
                                     <input
                                         type="checkbox"
                                         name="<?php echo esc_attr(LOGINCRAFT_OPTION); ?>[hide_back_to_blog]"
                                         value="1"
                                         <?php checked((bool) $options['hide_back_to_blog']); ?>
                                     >
+                                    <span class="lc-switch__track" aria-hidden="true"></span>
                                     <span><?php esc_html_e('Hide "Back to site" link', 'logincraft'); ?></span>
                                 </label>
 
-                                <label>
+                                <label class="lc-switch">
                                     <input
                                         type="checkbox"
                                         name="<?php echo esc_attr(LOGINCRAFT_OPTION); ?>[generic_login_errors]"
                                         value="1"
                                         <?php checked((bool) $options['generic_login_errors']); ?>
                                     >
+                                    <span class="lc-switch__track" aria-hidden="true"></span>
                                     <span><?php esc_html_e('Generic login error message (prevents username enumeration)', 'logincraft'); ?></span>
                                 </label>
                             </div>
                         </section>
 
                         <section class="lc-card">
-                            <h2><?php esc_html_e('4. Custom CSS', 'logincraft'); ?></h2>
+                            <h2><?php esc_html_e('Custom CSS', 'logincraft'); ?></h2>
                             <div class="lc-field">
                                 <label class="screen-reader-text" for="lc_custom_css"><?php esc_html_e('Custom CSS', 'logincraft'); ?></label>
                                 <textarea
@@ -423,7 +430,7 @@ final class AdminPage
                             <button
                                 type="submit"
                                 form="logincraft-reset-form"
-                                class="button button-link-delete"
+                                class="lc-btn-danger"
                                 data-confirm-reset="<?php esc_attr_e('Restore all login settings to defaults?', 'logincraft'); ?>"
                             >
                                 <?php esc_html_e('Reset to defaults', 'logincraft'); ?>
@@ -440,52 +447,65 @@ final class AdminPage
                 <aside class="lc-preview-col">
                     <div class="lc-preview-wrap">
                         <div class="lc-preview-head">
-                            <strong><?php esc_html_e('Live preview', 'logincraft'); ?></strong>
-                            <span id="lc_preview_layout_badge"><?php echo esc_html($layoutLabels[(string) $options['layout']] ?? (string) $options['layout']); ?></span>
+                            <div class="lc-preview-head__meta">
+                                <strong><?php esc_html_e('Live preview', 'logincraft'); ?></strong>
+                                <span id="lc_preview_layout_badge" class="lc-preview-badge"><?php echo esc_html($layoutLabels[(string) $options['layout']] ?? (string) $options['layout']); ?></span>
+                            </div>
+
+                            <div class="lc-preview-modes" role="group" aria-label="<?php esc_attr_e('Preview viewport', 'logincraft'); ?>">
+                                <button type="button" class="lc-preview-mode" data-preview-mode="desktop" aria-pressed="true">
+                                    <?php esc_html_e('Desktop', 'logincraft'); ?>
+                                </button>
+                                <button type="button" class="lc-preview-mode" data-preview-mode="mobile" aria-pressed="false">
+                                    <?php esc_html_e('Mobile', 'logincraft'); ?>
+                                </button>
+                            </div>
                         </div>
 
-                        <div
-                            id="logincraft-preview"
-                            class="lc-preview lc-preview--<?php echo esc_attr((string) $options['layout']); ?> <?php echo $bgImageUrl !== '' ? 'is-has-bg-image' : ''; ?>"
-                            data-fallback-logo="<?php echo esc_url($fallbackLogoUrl); ?>"
-                            data-site-name="<?php echo esc_attr($siteName); ?>"
-                            data-layout-labels="<?php echo esc_attr((string) wp_json_encode($layoutLabels)); ?>"
-                            aria-hidden="true"
-                        >
-                            <div class="lc-preview__aside"></div>
-                            <div class="lc-preview__main">
-                                <div class="lc-preview__stage">
-                                    <div class="lc-preview__logo <?php echo $effectiveLogoUrl === '' ? 'is-fallback' : ''; ?>">
-                                        <img src="<?php echo esc_url($effectiveLogoUrl); ?>" alt="">
-                                        <span class="lc-preview__site-name"><?php echo esc_html($siteName); ?></span>
-                                    </div>
-
-                                    <p class="lc-preview__welcome" <?php echo $options['welcome_text'] === '' ? 'hidden' : ''; ?>>
-                                        <?php echo esc_html((string) $options['welcome_text']); ?>
-                                    </p>
-
-                                    <div class="lc-preview__card">
-                                        <div class="lc-preview__field">
-                                            <span><?php esc_html_e('Username or Email Address', 'logincraft'); ?></span>
-                                            <div class="lc-preview__input"></div>
+                        <div id="lc_preview_viewport" class="lc-preview-viewport">
+                            <div
+                                id="logincraft-preview"
+                                class="lc-preview lc-preview--<?php echo esc_attr((string) $options['layout']); ?> <?php echo $bgImageUrl !== '' ? 'is-has-bg-image' : ''; ?>"
+                                data-fallback-logo="<?php echo esc_url($fallbackLogoUrl); ?>"
+                                data-site-name="<?php echo esc_attr($siteName); ?>"
+                                data-layout-labels="<?php echo esc_attr((string) wp_json_encode($layoutLabels)); ?>"
+                                aria-hidden="true"
+                            >
+                                <div class="lc-preview__aside"></div>
+                                <div class="lc-preview__main">
+                                    <div class="lc-preview__stage">
+                                        <div class="lc-preview__logo <?php echo $effectiveLogoUrl === '' ? 'is-fallback' : ''; ?>">
+                                            <img src="<?php echo esc_url($effectiveLogoUrl); ?>" alt="">
+                                            <span class="lc-preview__site-name"><?php echo esc_html($siteName); ?></span>
                                         </div>
-                                        <div class="lc-preview__field">
-                                            <span><?php esc_html_e('Password', 'logincraft'); ?></span>
-                                            <div class="lc-preview__input"></div>
+
+                                        <p class="lc-preview__welcome" <?php echo $options['welcome_text'] === '' ? 'hidden' : ''; ?>>
+                                            <?php echo esc_html((string) $options['welcome_text']); ?>
+                                        </p>
+
+                                        <div class="lc-preview__card">
+                                            <div class="lc-preview__field">
+                                                <span><?php esc_html_e('Username or Email Address', 'logincraft'); ?></span>
+                                                <div class="lc-preview__input"></div>
+                                            </div>
+                                            <div class="lc-preview__field">
+                                                <span><?php esc_html_e('Password', 'logincraft'); ?></span>
+                                                <div class="lc-preview__input"></div>
+                                            </div>
+                                            <div class="lc-preview__btn"><?php esc_html_e('Log In', 'logincraft'); ?></div>
                                         </div>
-                                        <div class="lc-preview__btn"><?php esc_html_e('Log In', 'logincraft'); ?></div>
-                                    </div>
 
-                                    <div class="lc-preview__links">
-                                        <span><?php esc_html_e('Lost your password?', 'logincraft'); ?></span>
-                                        <span class="lc-preview__back" <?php echo !empty($options['hide_back_to_blog']) ? 'hidden' : ''; ?>>
-                                            &larr; <?php echo esc_html($siteName); ?>
-                                        </span>
-                                    </div>
+                                        <div class="lc-preview__links">
+                                            <span><?php esc_html_e('Lost your password?', 'logincraft'); ?></span>
+                                            <span class="lc-preview__back" <?php echo !empty($options['hide_back_to_blog']) ? 'hidden' : ''; ?>>
+                                                &larr; <?php echo esc_html($siteName); ?>
+                                            </span>
+                                        </div>
 
-                                    <p class="lc-preview__footer" <?php echo $options['footer_text'] === '' ? 'hidden' : ''; ?>>
-                                        <?php echo esc_html((string) $options['footer_text']); ?>
-                                    </p>
+                                        <p class="lc-preview__footer" <?php echo $options['footer_text'] === '' ? 'hidden' : ''; ?>>
+                                            <?php echo esc_html((string) $options['footer_text']); ?>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -522,7 +542,7 @@ final class AdminPage
                 <?php if ($isOptional) : ?>
                     <button
                         type="button"
-                        class="button-link"
+                        class="lc-btn-ghost"
                         aria-label="<?php echo esc_attr(sprintf(__('Clear %s', 'logincraft'), $label)); ?>"
                         data-color-clear
                     ><?php esc_html_e('Clear', 'logincraft'); ?></button>

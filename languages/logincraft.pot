@@ -49,7 +49,7 @@ msgstr ""
 msgid "Quick Presets"
 msgstr ""
 
-msgid "1. Layout & Branding"
+msgid "Layout & Branding"
 msgstr ""
 
 msgid "Page layout"
@@ -79,7 +79,7 @@ msgstr ""
 msgid "Logo height"
 msgstr ""
 
-msgid "2. Colors & Background"
+msgid "Colors & Background"
 msgstr ""
 
 msgid "Background"
@@ -121,7 +121,7 @@ msgstr ""
 msgid "Rounded (16px)"
 msgstr ""
 
-msgid "3. UX & Security"
+msgid "UX & Security"
 msgstr ""
 
 msgid "Welcome message (optional)"
@@ -145,10 +145,16 @@ msgstr ""
 msgid "Generic login error message (prevents username enumeration)"
 msgstr ""
 
-msgid "4. Custom CSS"
+msgid "Custom CSS"
 msgstr ""
 
-msgid "Custom CSS"
+msgid "Preview viewport"
+msgstr ""
+
+msgid "Desktop"
+msgstr ""
+
+msgid "Mobile"
 msgstr ""
 
 msgid "Save changes"

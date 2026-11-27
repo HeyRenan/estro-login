@@ -4,7 +4,7 @@ Tags: login, custom login, login page, white label, security
 Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,6 +42,11 @@ No. Options are stored with `autoload = false`, admin assets load only on the Lo
 Yes. When `interim-login` is active, LoginCraft automatically keeps the layout compact so the modal stays usable.
 
 == Changelog ==
+
+= 1.0.1 =
+* Fixed `.wp-core-ui` body selector so the primary login button always applies custom color and full width.
+* Redesigned admin buttons (Select, Remove, Clear, Reset), preset grid with active state, toggle switches, full-width inputs, and color input alignment.
+* Added Desktop / Mobile viewport switcher to the live preview.
 
 = 1.0.0 =
 * Initial public release.

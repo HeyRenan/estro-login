@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 define('ABSPATH', __DIR__ . '/../');
-define('LOGINCRAFT_VERSION', '1.0.0');
+define('LOGINCRAFT_VERSION', '1.0.1');
 define('LOGINCRAFT_FILE', dirname(__DIR__) . '/logincraft.php');
 define('LOGINCRAFT_DIR', dirname(__DIR__) . '/');
 define('LOGINCRAFT_URL', 'https://example.test/wp-content/plugins/logincraft/');

@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const form = document.getElementById('logincraft-form');
   const preview = document.getElementById('logincraft-preview');
+  const viewport = document.getElementById('lc_preview_viewport');
 
   if (!form || !preview) {
     return;
@@ -46,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const logoHeightVal = document.getElementById('lc_logo_height_val');
   const bgOverlayInput = document.getElementById('lc_bg_overlay');
   const bgOverlayVal = document.getElementById('lc_bg_overlay_val');
+  const overlayField = document.querySelector('[data-overlay-field]');
   const welcomeInput = document.getElementById('lc_welcome_text');
   const footerInput = document.getElementById('lc_footer_text');
 
@@ -54,6 +56,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const previewWelcome = preview.querySelector('.lc-preview__welcome');
   const previewFooter = preview.querySelector('.lc-preview__footer');
   const previewBack = preview.querySelector('.lc-preview__back');
+
+  const presetsWrap = form.querySelector('[data-presets]');
+  let presets = {};
+  if (presetsWrap) {
+    try {
+      presets = JSON.parse(presetsWrap.getAttribute('data-presets') || '{}');
+    } catch (_) {
+      presets = {};
+    }
+  }
 
   function setColorField(id, value) {
     const hexInput = document.getElementById(id);
@@ -66,6 +78,27 @@ document.addEventListener('DOMContentLoaded', () => {
     if (swatch && isValidHex(value)) {
       swatch.value = value;
     }
+  }
+
+  function syncActivePreset(current) {
+    if (!presetsWrap) {
+      return;
+    }
+
+    presetsWrap.querySelectorAll('[data-preset]').forEach((button) => {
+      const key = button.getAttribute('data-preset');
+      const preset = key ? presets[key] : null;
+      const matches = Boolean(
+        preset
+        && preset.layout === current.layout
+        && (preset.bg_color || '').toLowerCase() === current.bgColor.toLowerCase()
+        && (preset.bg_color_end || '').toLowerCase() === current.bgEnd.toLowerCase()
+        && (preset.card_bg_color || '').toLowerCase() === current.cardBg.toLowerCase()
+        && (preset.primary_color || '').toLowerCase() === current.primary.toLowerCase()
+        && String(preset.card_radius) === String(current.radius)
+      );
+      button.classList.toggle('is-active', matches);
+    });
   }
 
   function updatePreview() {
@@ -88,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const radius = form.querySelector('input[name$="[card_radius]"]:checked')?.value || '8';
     const logoHeight = logoHeightInput?.value || '64';
     const overlay = Number(bgOverlayInput?.value || '45');
+    const isMobilePreview = viewport?.classList.contains('lc-preview-viewport--mobile') || false;
 
     if (logoHeightVal) {
       logoHeightVal.textContent = `${logoHeight}px`;
@@ -99,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bgImgEl = form.querySelector('[data-media-picker="bg"] img');
     const bgImgUrl = bgImgEl && !bgImgEl.closest('.is-empty') ? bgImgEl.getAttribute('src') || '' : '';
     preview.classList.toggle('is-has-bg-image', bgImgUrl !== '');
+    overlayField?.classList.toggle('is-muted', bgImgUrl === '');
 
     const logoEl = form.querySelector('[data-media-picker="logo"] img');
     const selectedLogo = logoEl && !logoEl.closest('.is-empty') ? logoEl.getAttribute('src') || '' : '';
@@ -121,9 +156,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardText = contrastColor(cardBg, '#f8fafc', '#0f172a');
     const cardBorder = cardText === '#f8fafc' ? 'rgb(255 255 255 / 0.14)' : 'rgb(15 23 42 / 0.08)';
     const primaryText = contrastColor(primary);
+    const hasBodyBgImage = bgImgUrl !== '' && layout !== 'split';
     const bgContrastSample = bgEnd !== '' ? bgEnd : bgColor;
-    const outerSource = (bgImgUrl && overlay >= 35) ? '#0f172a' : bgContrastSample;
-    const outerText = layout === 'split' ? cardText : contrastColor(outerSource, '#ffffff', '#0f172a');
+    const outerSource = (hasBodyBgImage && overlay >= 35) ? '#0f172a' : bgContrastSample;
+    const outerText = (layout === 'split' && !isMobilePreview)
+      ? cardText
+      : contrastColor(outerSource, '#ffffff', '#0f172a');
 
     preview.style.setProperty('--lc-bg', bgColor);
     preview.style.setProperty('--lc-bg-surface', bgSurface);
@@ -154,44 +192,47 @@ document.addEventListener('DOMContentLoaded', () => {
     if (previewBack) {
       previewBack.hidden = hideBack;
     }
+
+    syncActivePreset({ layout, bgColor, bgEnd, cardBg, primary, radius });
   }
 
-  const presetsWrap = form.querySelector('[data-presets]');
-  if (presetsWrap) {
-    let presets = {};
-    try {
-      presets = JSON.parse(presetsWrap.getAttribute('data-presets') || '{}');
-    } catch (_) {
-      presets = {};
-    }
+  presetsWrap?.querySelectorAll('[data-preset]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const key = button.getAttribute('data-preset');
+      const preset = key ? presets[key] : null;
+      if (!preset) {
+        return;
+      }
 
-    presetsWrap.querySelectorAll('[data-preset]').forEach((button) => {
-      button.addEventListener('click', () => {
-        const key = button.getAttribute('data-preset');
-        const preset = key ? presets[key] : null;
-        if (!preset) {
-          return;
-        }
+      const layoutRadio = form.querySelector(`input[name$="[layout]"][value="${preset.layout}"]`);
+      if (layoutRadio) {
+        layoutRadio.checked = true;
+      }
 
-        const layoutRadio = form.querySelector(`input[name$="[layout]"][value="${preset.layout}"]`);
-        if (layoutRadio) {
-          layoutRadio.checked = true;
-        }
+      setColorField('lc_bg_color', preset.bg_color || '#f1f5f9');
+      setColorField('lc_bg_color_end', preset.bg_color_end || '');
+      setColorField('lc_card_bg_color', preset.card_bg_color || '#ffffff');
+      setColorField('lc_primary_color', preset.primary_color || '#0f172a');
 
-        setColorField('lc_bg_color', preset.bg_color || '#f1f5f9');
-        setColorField('lc_bg_color_end', preset.bg_color_end || '');
-        setColorField('lc_card_bg_color', preset.card_bg_color || '#ffffff');
-        setColorField('lc_primary_color', preset.primary_color || '#0f172a');
+      const radiusRadio = form.querySelector(`input[name$="[card_radius]"][value="${preset.card_radius}"]`);
+      if (radiusRadio) {
+        radiusRadio.checked = true;
+      }
 
-        const radiusRadio = form.querySelector(`input[name$="[card_radius]"][value="${preset.card_radius}"]`);
-        if (radiusRadio) {
-          radiusRadio.checked = true;
-        }
-
-        updatePreview();
-      });
+      updatePreview();
     });
-  }
+  });
+
+  document.querySelectorAll('[data-preview-mode]').forEach((modeBtn) => {
+    modeBtn.addEventListener('click', () => {
+      const mode = modeBtn.getAttribute('data-preview-mode');
+      document.querySelectorAll('[data-preview-mode]').forEach((btn) => {
+        btn.setAttribute('aria-pressed', btn === modeBtn ? 'true' : 'false');
+      });
+      viewport?.classList.toggle('lc-preview-viewport--mobile', mode === 'mobile');
+      updatePreview();
+    });
+  });
 
   form.querySelectorAll('[data-color-control]').forEach((group) => {
     const swatch = group.querySelector('[data-color-swatch]');
