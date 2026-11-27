@@ -91,5 +91,6 @@ Zero-dependency, standalone WordPress plugins crafted with the same live-preview
 |---|---|---|
 | **Estro Login** | Login screen customizer & security hygiene | `heyrenan/estro-login` |
 | **Estro Chat** | Floating WhatsApp button, targeting & GA4/GTM tracking | [HeyRenan/estro-chat](https://github.com/HeyRenan/estro-chat) |
+| **Estro Consent** | Zero-CLS LGPD/GDPR cookie banner & Consent Mode v2 | [HeyRenan/estro-consent](https://github.com/HeyRenan/estro-consent) |
 
 [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Changelog](CHANGELOG.md)
