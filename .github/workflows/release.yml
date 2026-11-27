@@ -54,7 +54,7 @@ jobs:
         run: |
           git archive --format=zip --prefix=estro-login/ HEAD -o estro-login.zip
           unzip -l estro-login.zip
-          ! unzip -l estro-login.zip | grep -qE 'estro-login/(\.github|docs|tests)/'
+          ! unzip -l estro-login.zip | grep -qE 'estro-login/(\.github|\.wordpress-org|docs|tests)/'
 
       - name: Publish GitHub Release
         env:

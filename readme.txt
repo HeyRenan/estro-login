@@ -41,6 +41,13 @@ No. Options are stored with `autoload = false`, admin assets load only on the Es
 = Does it work with WordPress session-expired modal (`interim-login`)? =
 Yes. When `interim-login` is active, Estro Login automatically keeps the layout compact so the modal stays usable.
 
+== Screenshots ==
+
+1. Estro Login settings page with starter presets and real-time Split Studio live preview.
+2. Responsive Split Studio login layout on `wp-login.php`.
+3. Midnight Dark login preset with automatic WCAG dark-card contrast.
+4. Warm Minimal login preset on `wp-login.php`.
+
 == Changelog ==
 
 = 1.2.0 =
