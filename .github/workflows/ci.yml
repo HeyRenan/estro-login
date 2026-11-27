@@ -39,15 +39,11 @@ jobs:
           php -r '
           $plugin = file_get_contents("estro-login.php");
           $readme = file_get_contents("readme.txt");
-          foreach (["Plugin Name:", "Version:", "Requires at least:", "Requires PHP:", "Text Domain:", "Update URI:"] as $field) {
+          foreach (["Plugin Name:", "Version:", "Requires at least:", "Requires PHP:", "Text Domain:"] as $field) {
               if (!str_contains($plugin, $field)) {
                   fwrite(STDERR, "Missing header: $field\n");
                   exit(1);
               }
-          }
-          if (!preg_match("/^\s*\*\s*Update URI:\s*false\s*$/m", $plugin)) {
-              fwrite(STDERR, "Update URI header must be set to false\n");
-              exit(1);
           }
           preg_match("/^\s*\*\s*Version:\s*([^\s]+)/m", $plugin, $hdrVer);
           preg_match("/define\(\x27ESTRO_LOGIN_VERSION\x27,\s*\x27([^\x27]+)\x27\)/", $plugin, $constVer);

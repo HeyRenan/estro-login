@@ -541,6 +541,12 @@ final class AdminPage
     private function renderColorInput(string $key, string $label, string $value, string $pickerFallback, bool $isOptional = false): void
     {
         $pickerValue = $value !== '' ? $value : $pickerFallback;
+        /* translators: %s: color field label. */
+        $pickerAria = sprintf(__('%s color picker', 'estro-login'), $label);
+        /* translators: %s: color field label. */
+        $hexAria = sprintf(__('%s hex value', 'estro-login'), $label);
+        /* translators: %s: color field label. */
+        $clearAria = sprintf(__('Clear %s', 'estro-login'), $label);
         ?>
         <div class="el-color-control" data-color-control data-optional="<?php echo $isOptional ? '1' : '0'; ?>">
             <label class="el-label" for="el_<?php echo esc_attr($key); ?>"><?php echo esc_html($label); ?></label>
@@ -548,7 +554,7 @@ final class AdminPage
                 <input
                     type="color"
                     value="<?php echo esc_attr($pickerValue); ?>"
-                    aria-label="<?php echo esc_attr(sprintf(__('%s color picker', 'estro-login'), $label)); ?>"
+                    aria-label="<?php echo esc_attr($pickerAria); ?>"
                     data-color-swatch
                 >
                 <input
@@ -557,7 +563,7 @@ final class AdminPage
                     name="<?php echo esc_attr(ESTRO_LOGIN_OPTION . '[' . $key . ']'); ?>"
                     value="<?php echo esc_attr($value); ?>"
                     placeholder="<?php echo $isOptional ? esc_attr__('None', 'estro-login') : ''; ?>"
-                    aria-label="<?php echo esc_attr(sprintf(__('%s hex value', 'estro-login'), $label)); ?>"
+                    aria-label="<?php echo esc_attr($hexAria); ?>"
                     maxlength="7"
                     data-color-hex
                 >
@@ -565,7 +571,7 @@ final class AdminPage
                     <button
                         type="button"
                         class="el-btn-ghost"
-                        aria-label="<?php echo esc_attr(sprintf(__('Clear %s', 'estro-login'), $label)); ?>"
+                        aria-label="<?php echo esc_attr($clearAria); ?>"
                         data-color-clear
                     ><?php esc_html_e('Clear', 'estro-login'); ?></button>
                 <?php endif; ?>
